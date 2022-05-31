@@ -29,6 +29,10 @@ export const AllPacks = memo(() => {
         dispatch(setSearchTodoAC({searchTodo}));
         dispatch(getTodolistsTC());
     };
+    const onChangePageSelector = (page: number) => {
+        dispatch(setPageCountAC({pageCount: page}));
+        dispatch(getTodolistsTC());
+    }
 
     return (
         <ProfileWrapper>
@@ -52,7 +56,7 @@ export const AllPacks = memo(() => {
                                   currentPage={stateApp.params.page}/>
                         <ShowCardsPage>Show
                             <PageSelect value={stateApp.params.pageSize}
-                                        onChange={(page) => dispatch(setPageCountAC({pageCount: page}))}
+                                        onChange={onChangePageSelector}
                                         items={[5, 10, 15, 20]}/>
                             Cards per Page</ShowCardsPage>
                     </>
