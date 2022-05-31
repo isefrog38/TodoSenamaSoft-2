@@ -10,24 +10,14 @@ export const getTodolistsTC = (): AppThunkType =>
         dispatch(setIsFetchingAC({isFetching: true}));
 
     try {
-        let searchTitle = getState().AppReducer.searchTodo;
-        if (searchTitle !== '') {
-            const response = await todolistsAPI.getSearchedTodolists(searchTitle);
-            if (response.status === 200) {
-                dispatch(setTodolistsAC({todolists: response.data}));
-                dispatch(setAppStatusAC({status: 'succeeded'}));
-                dispatch(setIsFetchingAC({isFetching: false}));
-            }
-        }
-        else {
-            const response = await todolistsAPI.getTodolists();
+        let {params} = getState().AppReducer;
+            const response = await todolistsAPI.getTodolists(params);
             if (response.status === 200) {
                 dispatch(setTodolistsAC({todolists: response.data.todolists}));
                 dispatch(setTotalPageCountTaskAC({totalCount: response.data.totalCount}));
                 dispatch(setAppStatusAC({status: 'succeeded'}));
                 dispatch(setIsFetchingAC({isFetching: false}));
             }
-        }
     } catch (e) {
         if (e instanceof Error) {
             handleServerNetworkError(e, dispatch);

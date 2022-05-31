@@ -4,12 +4,8 @@ import {GetTasksResponse, TodolistType} from "../Types/TodolistType";
 const instance = axios.create({baseURL: 'http://localhost:7574/'});
 
 export const todolistsAPI = {
-    getTodolists() {
-        return instance.get<{todolists: TodolistType[], totalCount: number}>(`todolists`);
-    },
-
-    getSearchedTodolists(searchTitle?: string) {
-        return instance.get<TodolistType[]>(`todolists?search=${searchTitle}`);
+    getTodolists(params: {searchTitle?: string, pageSize: number, page: number}) {
+        return instance.get<{todolists: TodolistType[], totalCount: number}>(`todolists`, {params});
     },
 
     createTodolist(title: string) {

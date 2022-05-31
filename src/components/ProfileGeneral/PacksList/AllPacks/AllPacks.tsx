@@ -8,7 +8,7 @@ import {PageSelect} from "../../../../UtilsFunction/PageSelector";
 import styled from "styled-components";
 import {useAppSelector, useTypedDispatch} from "../../../../Redux-Store/store";
 import {getTodolistsTC} from "../../../../Thunk/Todolist-thunk";
-import {AppInitialStateType, setPageCountAC, setSearchTodoAC} from "../../../../Redux-Store/App-reducer";
+import {AppInitialStateType, getPageAC, setPageCountAC, setSearchTodoAC} from "../../../../Redux-Store/App-reducer";
 import {SearchInput} from "../../../Common/SearchInput/SearchInput";
 import {AddTaskModal} from "../../../AddTaskModal";
 import {InitialStateTodolistDomainType} from "../../../../Redux-Store/todolists-reducer";
@@ -18,14 +18,13 @@ export const AllPacks = memo(() => {
     const stateApp = useAppSelector<AppInitialStateType>(state => state.AppReducer);
     const stateTodo = useAppSelector<InitialStateTodolistDomainType[]>(state => state.todolistsReducer);
     const [showAddModal, setShowAddModal] = useState<boolean>(false);
-
     const dispatch = useTypedDispatch();
 
-    const addPackHandler = () => setShowAddModal(true);
+    const addTaskHandler = () => setShowAddModal(true);
     const onPageChanged = (page: number) => {
-
+        dispatch(getPageAC({page}));
+        dispatch(getTodolistsTC());
     };
-
     const onChangeDebounceRequest = (searchTodo: string) => {
         dispatch(setSearchTodoAC({searchTodo}));
         dispatch(getTodolistsTC());
@@ -37,22 +36,22 @@ export const AllPacks = memo(() => {
             <TitleProfileWrapper fontSz={1.5}>Todolist</TitleProfileWrapper>
 
             <SearchBlock>
-                    <SearchInput valueSearch={stateApp.searchTodo} onChangeWithDebounce={onChangeDebounceRequest}/>
-                <Button name={'Add new task'} onClick={addPackHandler}/>
+                    <SearchInput valueSearch={stateApp.params.searchTodo} onChangeWithDebounce={onChangeDebounceRequest}/>
+                <Button name={'Add new task'} onClick={addTaskHandler}/>
             </SearchBlock>
 
             <CardTable itemPack={stateTodo} isFetching={stateApp.isFetching}/>
 
             <PaginationBlock>
-                {stateApp.pagination.totalCount && stateApp.pagination.totalCount > 10 &&
+                {stateApp.totalCount && stateApp.totalCount > 10 &&
                     <>
                         <Pagination portionSize={10}
-                                  totalItemsCount={stateApp.pagination.totalCount}
-                                  pageSize={stateApp.pagination.pageSize}
+                                  totalItemsCount={stateApp.totalCount}
+                                  pageSize={stateApp.params.pageSize}
                                   onPageChanged={onPageChanged}
-                                  currentPage={stateApp.pagination.page}/>
+                                  currentPage={stateApp.params.page}/>
                         <ShowCardsPage>Show
-                            <PageSelect value={stateApp.pagination.pageCount}
+                            <PageSelect value={stateApp.params.pageSize}
                                         onChange={(page) => dispatch(setPageCountAC({pageCount: page}))}
                                         items={[5, 10, 15, 20]}/>
                             Cards per Page</ShowCardsPage>
