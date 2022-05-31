@@ -3,8 +3,8 @@ import {colors} from "./Colors";
 
 export const ProfileWrapper = styled.div`
   width: 100%;
-  height: 80%;
-  margin-top: 150px;
+  height: 88vh;
+  margin-top: 100px;
   padding: 1.2vw 2.4vw;
   border-radius: 10px;
   background-color: ${colors.BackgroundWight};`;
@@ -12,7 +12,8 @@ export const ProfileWrapper = styled.div`
 export const GeneralProfileWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  width: 80%;
+  width: 70%;
+  height: 70%;
 `;
 export const ToolsProfileBlock = styled.div`
   display: flex;

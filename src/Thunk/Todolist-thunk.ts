@@ -1,5 +1,5 @@
 import {addTodolistAC, changeTodolistTitleAC, removeTodolistAC, setTodolistsAC} from "../Redux-Store/todolists-reducer";
-import {setAppStatusAC} from "../Redux-Store/App-reducer";
+import {setAppStatusAC, setIsFetchingAC, setTotalPageCountTaskAC} from "../Redux-Store/App-reducer";
 import {AppRootStateType, AppThunkType} from "../Redux-Store/store";
 import {handleServerNetworkError} from "../UtilsFunction/Error-Utils";
 import {todolistsAPI} from "../API/API";
@@ -7,7 +7,7 @@ import {todolistsAPI} from "../API/API";
 export const getTodolistsTC = (): AppThunkType =>
     async (dispatch, getState: () => AppRootStateType) => {
 
-    dispatch(setAppStatusAC({status: 'loading'}));
+        dispatch(setIsFetchingAC({isFetching: true}));
 
     try {
         let searchTitle = getState().AppReducer.searchTodo;
@@ -16,13 +16,16 @@ export const getTodolistsTC = (): AppThunkType =>
             if (response.status === 200) {
                 dispatch(setTodolistsAC({todolists: response.data}));
                 dispatch(setAppStatusAC({status: 'succeeded'}));
+                dispatch(setIsFetchingAC({isFetching: false}));
             }
         }
         else {
             const response = await todolistsAPI.getTodolists();
             if (response.status === 200) {
-                dispatch(setTodolistsAC({todolists: response.data}));
+                dispatch(setTodolistsAC({todolists: response.data.todolists}));
+                dispatch(setTotalPageCountTaskAC({totalCount: response.data.totalCount}));
                 dispatch(setAppStatusAC({status: 'succeeded'}));
+                dispatch(setIsFetchingAC({isFetching: false}));
             }
         }
     } catch (e) {
@@ -34,12 +37,13 @@ export const getTodolistsTC = (): AppThunkType =>
 
 export const removeTodolistTC = (todolistId: string): AppThunkType => async dispatch => {
 
-    dispatch(setAppStatusAC({status: 'loading'}));
+    dispatch(setIsFetchingAC({isFetching: true}));
+
     try {
         const response = await todolistsAPI.removeTodolist(todolistId);
         if (response.status === 200) {
             dispatch(removeTodolistAC({todolistId}));
-            dispatch(setAppStatusAC({status: 'succeeded'}));
+            dispatch(setIsFetchingAC({isFetching: false}));
         }
     } catch (e) {
         if (e instanceof Error) {
@@ -51,13 +55,13 @@ export const removeTodolistTC = (todolistId: string): AppThunkType => async disp
 
 export const createTodolistTC = (title: string): AppThunkType => async dispatch => {
 
-    dispatch(setAppStatusAC({status: 'loading'}));
+    dispatch(setIsFetchingAC({isFetching: true}));
 
     try {
         const response = await todolistsAPI.createTodolist(title);
         if (response.status === 200) {
             dispatch(addTodolistAC({title, todolistId: response.data.id}));
-            dispatch(setAppStatusAC({status: 'succeeded'}));
+            dispatch(setIsFetchingAC({isFetching: false}));
         }
     } catch (e) {
         if (e instanceof Error) {
@@ -68,13 +72,13 @@ export const createTodolistTC = (title: string): AppThunkType => async dispatch 
 
 export const updateTodolistTC = (todolistId: string, title: string): AppThunkType => async dispatch => {
 
-    dispatch(setAppStatusAC({status: 'loading'}));
+    dispatch(setIsFetchingAC({isFetching: true}));
 
     try {
         const response = await todolistsAPI.updateTodolist(todolistId, title);
         if (response.status === 200) {
             dispatch(changeTodolistTitleAC({todolistId, title}));
-            dispatch(setAppStatusAC({status: 'succeeded'}));
+            dispatch(setIsFetchingAC({isFetching: false}));
         }
     } catch (e) {
         if (e instanceof Error) {

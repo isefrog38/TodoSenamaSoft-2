@@ -10,18 +10,13 @@ import {useAppSelector, useTypedDispatch} from "../../../../Redux-Store/store";
 import {getTodolistsTC} from "../../../../Thunk/Todolist-thunk";
 import {AppInitialStateType, setPageCountAC, setSearchTodoAC} from "../../../../Redux-Store/App-reducer";
 import {SearchInput} from "../../../Common/SearchInput/SearchInput";
-import {TasksStateType} from "../../../../Redux-Store/tasks-reducer";
 import {AddTaskModal} from "../../../AddTaskModal";
+import {InitialStateTodolistDomainType} from "../../../../Redux-Store/todolists-reducer";
 
-type AllPacksType = {
-    namePage: string
-    id: string
-}
-
-export const AllPacks = memo(({namePage, id}: AllPacksType) => {
+export const AllPacks = memo(() => {
 
     const stateApp = useAppSelector<AppInitialStateType>(state => state.AppReducer);
-    const stateTask = useAppSelector<TasksStateType>(state => state.tasksReducer);
+    const stateTodo = useAppSelector<InitialStateTodolistDomainType[]>(state => state.todolistsReducer);
     const [showAddModal, setShowAddModal] = useState<boolean>(false);
 
     const dispatch = useTypedDispatch();
@@ -38,29 +33,26 @@ export const AllPacks = memo(({namePage, id}: AllPacksType) => {
 
     return (
         <ProfileWrapper>
-            {showAddModal
-                ? <AddTaskModal setShow={setShowAddModal}/>
-                : <></>
-            }
-            <TitleProfileWrapper fontSz={1.5}>{namePage}</TitleProfileWrapper>
+            {showAddModal && <AddTaskModal setShow={setShowAddModal}/>}
+            <TitleProfileWrapper fontSz={1.5}>Todolist</TitleProfileWrapper>
 
             <SearchBlock>
                     <SearchInput valueSearch={stateApp.searchTodo} onChangeWithDebounce={onChangeDebounceRequest}/>
-                <Button name={'Add new pack'} onClick={addPackHandler}/>
+                <Button name={'Add new task'} onClick={addPackHandler}/>
             </SearchBlock>
 
-            <CardTable itemPack={stateTask[id]} isFetching={stateApp.isFetching}/>
+            <CardTable itemPack={stateTodo} isFetching={stateApp.isFetching}/>
 
             <PaginationBlock>
-                {200 > 10 &&
+                {stateApp.pagination.totalCount && stateApp.pagination.totalCount > 10 &&
                     <>
                         <Pagination portionSize={10}
-                                  totalItemsCount={200}
-                                  pageSize={10}
+                                  totalItemsCount={stateApp.pagination.totalCount}
+                                  pageSize={stateApp.pagination.pageSize}
                                   onPageChanged={onPageChanged}
-                                  currentPage={1}/>
+                                  currentPage={stateApp.pagination.page}/>
                         <ShowCardsPage>Show
-                            <PageSelect value={200}
+                            <PageSelect value={stateApp.pagination.pageCount}
                                         onChange={(page) => dispatch(setPageCountAC({pageCount: page}))}
                                         items={[5, 10, 15, 20]}/>
                             Cards per Page</ShowCardsPage>

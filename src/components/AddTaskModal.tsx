@@ -16,7 +16,7 @@ import {colors} from "./StylesComponents/Colors";
 import {FormWrapper, TextAuthWrapper} from "./StylesComponents/AuthCardWrapper";
 import {useFormik} from "formik";
 import {useTypedDispatch} from "../Redux-Store/store";
-import {createTaskTC} from "../Thunk/Task-thunk";
+import {createTodolistTC} from "../Thunk/Todolist-thunk";
 
 type AddPackModalType = {
     setShow: (show: boolean) => void
@@ -43,7 +43,7 @@ export const AddTaskModal = ({setShow}: AddPackModalType) => {
             return errors;
         },
         onSubmit: (values) => {
-            dispatch(createTaskTC(values));
+            dispatch(createTodolistTC(values.nameTask));
             setShow(false);
         },
     });
@@ -54,7 +54,7 @@ export const AddTaskModal = ({setShow}: AddPackModalType) => {
                 <FormWrapper onSubmit={loginForm.handleSubmit}>
                     <Modal>
                         <WrapperTextAndClose>
-                            <ModalTextWrapper>Add Pack</ModalTextWrapper>
+                            <ModalTextWrapper>Add Task</ModalTextWrapper>
                             <Close onClick={closeModalClick}/>
                         </WrapperTextAndClose>
 
@@ -62,9 +62,9 @@ export const AddTaskModal = ({setShow}: AddPackModalType) => {
                             <TextAuthWrapper fontSz={13} opacity={0.5} color={colors.DarkBlue}>Name Pack</TextAuthWrapper>
                             <Input maxLength={maxLengthInput}
                                    type="text"
-                                   id="namePack"
-                                   placeholder={"New pack name"}
-                                   {...loginForm.getFieldProps("namePack")}
+                                   id="nameTask"
+                                   placeholder={"New task name"}
+                                   {...loginForm.getFieldProps("nameTask")}
                             />
                         </InputWrapper>
 

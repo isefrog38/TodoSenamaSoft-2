@@ -16,7 +16,7 @@ export const PacksList = () => {
     return (
         <GeneralProfileWrapper>
             <Header addTodolist={addTodolistHandler} status={status}/>
-            <AllPacks namePage={"TodoList"} id={"Todo"}/>
+            <AllPacks/>
         </GeneralProfileWrapper>
     )
 };

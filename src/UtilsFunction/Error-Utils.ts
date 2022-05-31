@@ -15,3 +15,12 @@ export const handleServerNetworkError = (error: {message: string}, dispatch: Dis
     dispatch(setAppErrorMessageAC({error: error.message}))
     dispatch(setAppStatusAC({status: 'failed'}))
 }
+
+
+export const Time = () => {
+    let day = new Date().getDate();
+    let year = new Date().getFullYear();
+    let month = new Date().getMonth() + 1;
+
+    return `${day < 10 ? `0${day}` : day}-${month < 10 ? `0${month}` : month}-${year}`
+}

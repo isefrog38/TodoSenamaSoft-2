@@ -5,7 +5,7 @@ const instance = axios.create({baseURL: 'http://localhost:7574/'});
 
 export const todolistsAPI = {
     getTodolists() {
-        return instance.get<TodolistType[]>(`todolists`);
+        return instance.get<{todolists: TodolistType[], totalCount: number}>(`todolists`);
     },
 
     getSearchedTodolists(searchTitle?: string) {

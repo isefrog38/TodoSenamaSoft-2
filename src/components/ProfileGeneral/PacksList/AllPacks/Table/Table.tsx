@@ -3,21 +3,24 @@ import {LoadingTable} from "../../../../Common/Loading/LoadingTable";
 import {TableElemets} from "./TableElements/TableElemets";
 import {PacksBlock} from '../../../../StylesComponents/CardsWrapper';
 import styled from "styled-components";
-import {TaskType} from "../../../../../Types/TodolistType";
+import {InitialStateTodolistDomainType} from "../../../../../Redux-Store/todolists-reducer";
+import {updateTodolistTC} from "../../../../../Thunk/Todolist-thunk";
 import {useTypedDispatch} from "../../../../../Redux-Store/store";
 
 type CardTableType = {
-    itemPack: TaskType[]
+    itemPack: InitialStateTodolistDomainType[]
     isFetching: boolean
 };
 const TableList = [
     {id: 1, name: "Name"},
     {id: 2, name: "Created by"},
+    // {id: 2, name: "Download File"},
     {id: 5, name: "Actions"},
 ];
 
 export const CardTable = ({itemPack, isFetching}: CardTableType) => {
 
+    const [onModal, setOnModal] = useState<string>('');
     const [up, setUp] = useState<boolean>(false);
     const dispatch = useTypedDispatch();
 
@@ -39,7 +42,7 @@ export const CardTable = ({itemPack, isFetching}: CardTableType) => {
                 </ItemColumn>
                 {isFetching
                     ? <LoadingTable/>
-                    : itemPack.map(el => <TableElemets key={el.id} el={el}/>)
+                    : itemPack.map(el => <TableElemets key={el._id} el={el} setOnModal={setOnModal} onModal={onModal}/>)
                 }
             </Table>
         </PacksBlock>
@@ -69,7 +72,7 @@ const Table = styled.div`
 
 const ItemColumn = styled.div`
   width: 100%;
-  height: 2.5vw;
+  height: 2.3vw;
   background-color: #ECECF9;
   font-size: 1vw;
   font-weight: 600;

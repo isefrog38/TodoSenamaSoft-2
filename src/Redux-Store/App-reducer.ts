@@ -3,18 +3,28 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed';
 
 export type AppInitialStateType = {
+    pagination : {
+        pageCount: number
+        pageSize: number
+        page: number
+        totalCount: number | null
+    }
     status: RequestStatusType
     error: null | string
     isFetching: boolean
-    pageCount: number
     searchTodo: string
 };
 
 const initialState: AppInitialStateType = {
+    pagination: {
+        pageCount: 10,
+        totalCount: null,
+        page: 1,
+        pageSize: 10,
+    },
     status: 'succeeded',
     error: null,
     isFetching: true,
-    pageCount: 1,
     searchTodo: '',
 }
 
@@ -32,14 +42,20 @@ const AppSlice = createSlice({
             state.isFetching = action.payload.isFetching;
         },
         setPageCountAC(state, action: PayloadAction<{ pageCount: number }>) {
-            state.pageCount = action.payload.pageCount;
+            state.pagination.pageCount = action.payload.pageCount;
         },
         setSearchTodoAC(state, action: PayloadAction<{ searchTodo: string }>) {
             state.searchTodo = action.payload.searchTodo;
+        },
+        getPageTaskAC(state, action: PayloadAction<{ page: number }>) {
+            state.pagination.page = action.payload.page;
+        },
+        setTotalPageCountTaskAC(state, action: PayloadAction<{ totalCount: number }>) {
+            state.pagination.totalCount = action.payload.totalCount;
         },
     },
 });
 
 export const AppReducer = AppSlice.reducer;
 
-export const {setIsFetchingAC, setSearchTodoAC, setPageCountAC, setAppStatusAC, setAppErrorMessageAC} = AppSlice.actions;
+export const {setTotalPageCountTaskAC, getPageTaskAC, setIsFetchingAC, setSearchTodoAC, setPageCountAC, setAppStatusAC, setAppErrorMessageAC} = AppSlice.actions;

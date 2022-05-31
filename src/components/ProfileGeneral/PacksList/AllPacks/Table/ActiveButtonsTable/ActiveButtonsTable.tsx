@@ -1,25 +1,37 @@
 import React from 'react';
 import styled from "styled-components";
 import {colors} from "../../../../../StylesComponents/Colors";
-import {TaskType} from "../../../../../../Types/TodolistType";
+import {InitialStateTodolistDomainType} from "../../../../../../Redux-Store/todolists-reducer";
+import {removeTodolistTC} from "../../../../../../Thunk/Todolist-thunk";
+import {useTypedDispatch} from "../../../../../../Redux-Store/store";
 
 type ActiveButtonsTableType = {
-    el: TaskType
+    onModal: string
+    setOnModal: (show: string) => void
+    el: InitialStateTodolistDomainType
 }
 
-export const ActiveButtonsTable = ({el}: ActiveButtonsTableType) => {
+export const ActiveButtonsTable = ({el, setOnModal, onModal}: ActiveButtonsTableType) => {
 
-    const deletePackHandler = () => {};
-    const editPackHandler = () => {};
+    const dispatch = useTypedDispatch();
+
+    const deleteTaskHandler = () => dispatch(removeTodolistTC(el._id));
+    const editHandleClick = () => {
+        if (onModal !== '') {
+            setOnModal('')
+        } else {
+            setOnModal(el._id);
+        }
+    }
 
     return (
         <>
-                    <Button color={colors.WhiteColor} bgColor={'#F1453D'} onClick={deletePackHandler}>
-                        Delete
-                    </Button>
-                    <Button color={colors.Blue} bgColor={colors.AzureishWhite} onClick={editPackHandler}>
-                        Edit
-                    </Button>
+            <Button color={colors.WhiteColor} bgColor={'#F1453D'} onClick={deleteTaskHandler}>
+                Delete
+            </Button>
+            <Button color={colors.Blue} bgColor={colors.AzureishWhite} onClick={editHandleClick}>
+                Edit
+            </Button>
         </>
     )
 };
