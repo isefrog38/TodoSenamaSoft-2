@@ -9,9 +9,7 @@ export type InitialStateTodolistDomainType = TodolistType & {
     entityStatus: RequestStatusType
 };
 
-const initialState: Array<InitialStateTodolistDomainType> = [
-    // {id: 'todolistId1', title: 'First todo', filter: 'All', addedDate: '', order: 0, entityStatus: "idle"},
-];
+const initialState: Array<InitialStateTodolistDomainType> = [];
 
 const TodolistSlice = createSlice({
     name: "TodolistSlice",

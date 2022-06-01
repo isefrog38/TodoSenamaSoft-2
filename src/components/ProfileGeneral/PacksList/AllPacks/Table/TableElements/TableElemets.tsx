@@ -1,56 +1,18 @@
-import React, {useState, KeyboardEvent, useRef, ChangeEvent} from 'react';
+import React from 'react';
 import {ActiveButtonsTable} from "../ActiveButtonsTable/ActiveButtonsTable";
 import styled from "styled-components";
 import {InitialStateTodolistDomainType} from "../../../../../../Redux-Store/todolists-reducer";
-import {InputWrapper} from "../../../../../Common/SearchInput/SearchInput";
-import {updateTodolistTC} from "../../../../../../Thunk/Todolist-thunk";
-import {useTypedDispatch} from "../../../../../../Redux-Store/store";
-import {Button} from "../../../../../Common/Buttons/Button";
-import {colors} from "../../../../../StylesComponents/Colors";
 
 type TableElementsType = {
-    onModal: string
-    setOnModal: (show: string) => void
     el: InitialStateTodolistDomainType
 }
 
-export const TableElemets = ({el, setOnModal, onModal}: TableElementsType) => {
-
-    const [value, setValue] = useState<string>(el.title);
-    const dispatch = useTypedDispatch();
-    const [file, setFile] = useState<File | null>(null);
-    const [fileUrl, setFileURL] = useState<string | null>(null);
-    const fileInput = useRef<HTMLInputElement>(null);
-
-    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        // e.preventDefault();
-        const newFile = e.target.files && e.target.files[0];
-        if (newFile) {
-            setFile(newFile);
-            setFileURL(window.URL.createObjectURL(newFile));
-        }
-    };
-
-
-    const onKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            dispatch(updateTodolistTC(el._id, value));
-            setOnModal('');
-        }
-    }
-
+export const TableElemets = ({el}: TableElementsType) => {
     return (
         <GeneralBlock>
-            {onModal === el._id
-                ? <InputWrapper value={value} onKeyPress={onKeyPress} onChange={(e) => setValue(e.currentTarget.value)} />
-                : <Item>{el.title}</Item>
-            }
-            <Item>{el.addedDate}</Item>
-            {/*<Item>*/}
-            {/*    <input type={"file"} style={{display:"none"}} ref={fileInput} onChange={onChange}/>*/}
-            {/*    <Button bg={colors.FilterButtonColor} width={50} name={"Choose File"} onClick={() => fileInput?.current?.click()}/>*/}
-            {/*</Item>*/}
-            <Item> <ActiveButtonsTable el={el} onModal={onModal} setOnModal={setOnModal}/> </Item>
+             <Item>{el.title}</Item>
+            <Item>{el.addedDate.length <= 10 ? el.addedDate : el.addedDate.slice(0, 10).split("-").reverse().join("-")}</Item>
+            <Item> <ActiveButtonsTable el={el}/> </Item>
         </GeneralBlock>
     );
 };

@@ -3,6 +3,7 @@ import {setAppStatusAC, setIsFetchingAC, setTotalPageCountTaskAC} from "../Redux
 import {AppRootStateType, AppThunkType} from "../Redux-Store/store";
 import {handleServerNetworkError} from "../UtilsFunction/Error-Utils";
 import {todolistsAPI} from "../API/API";
+import {FileType} from "../Types/TodolistType";
 
 export const getTodolistsTC = (): AppThunkType =>
     async (dispatch, getState: () => AppRootStateType) => {
@@ -43,14 +44,14 @@ export const removeTodolistTC = (todolistId: string): AppThunkType => async disp
 }
 
 
-export const createTodolistTC = (title: string): AppThunkType => async dispatch => {
+export const createTodolistTC = (title: string, date: Date, file?: FileType): AppThunkType => async dispatch => {
 
     dispatch(setIsFetchingAC({isFetching: true}));
 
     try {
-        const response = await todolistsAPI.createTodolist(title);
+        const response = await todolistsAPI.createTodolist(title, date, file);
         if (response.status === 200) {
-            dispatch(addTodolistAC({title, todolistId: response.data.id}));
+            dispatch(addTodolistAC({title: title, todolistId: response.data.id}));
             dispatch(setIsFetchingAC({isFetching: false}));
         }
     } catch (e) {
@@ -60,15 +61,30 @@ export const createTodolistTC = (title: string): AppThunkType => async dispatch 
     }
 }
 
-export const updateTodolistTC = (todolistId: string, title: string): AppThunkType => async dispatch => {
+export const updateTodolistTC = (todolistId: string, title: string, file?: string): AppThunkType => async dispatch => {
 
     dispatch(setIsFetchingAC({isFetching: true}));
 
     try {
-        const response = await todolistsAPI.updateTodolist(todolistId, title);
+        const response = await todolistsAPI.updateTodolist(todolistId, title, file);
         if (response.status === 200) {
             dispatch(changeTodolistTitleAC({todolistId, title}));
             dispatch(setIsFetchingAC({isFetching: false}));
+        }
+    } catch (e) {
+        if (e instanceof Error) {
+            handleServerNetworkError(e, dispatch);
+        }
+    }
+}
+
+
+export const downloadFileTC = (name: string): AppThunkType => async dispatch => {
+
+    try {
+        const response = await todolistsAPI.downloadFile(name);
+        if (response.status === 200) {
+            console.log(response.data.file)
         }
     } catch (e) {
         if (e instanceof Error) {

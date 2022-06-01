@@ -10,7 +10,7 @@ import {useAppSelector, useTypedDispatch} from "../../../../Redux-Store/store";
 import {getTodolistsTC} from "../../../../Thunk/Todolist-thunk";
 import {AppInitialStateType, getPageAC, setPageCountAC, setSearchTodoAC} from "../../../../Redux-Store/App-reducer";
 import {SearchInput} from "../../../Common/SearchInput/SearchInput";
-import {AddTaskModal} from "../../../AddTaskModal";
+import {AddTaskModal} from "../../../ModalWindow/AddTaskModal";
 import {InitialStateTodolistDomainType} from "../../../../Redux-Store/todolists-reducer";
 
 export const AllPacks = memo(() => {
@@ -31,6 +31,7 @@ export const AllPacks = memo(() => {
     };
     const onChangePageSelector = (page: number) => {
         dispatch(setPageCountAC({pageCount: page}));
+        dispatch(getPageAC({page: 1}));
         dispatch(getTodolistsTC());
     }
 

@@ -17,7 +17,6 @@ export const Snackbar = () => {
         dispatch(setAppErrorMessageAC({error: null}));
     },[appState.error]);
 
-
     return (
         <>
             <ToastContainer
