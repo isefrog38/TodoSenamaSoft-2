@@ -40,7 +40,7 @@ export const AllPacks = memo(() => {
             <TitleProfileWrapper fontSz={1.5}>Todolist</TitleProfileWrapper>
 
             <SearchBlock>
-                    <SearchInput valueSearch={stateApp.params.searchTodo} onChangeWithDebounce={onChangeDebounceRequest}/>
+                    <SearchInput valueSearch={stateApp.params.search} onChangeWithDebounce={onChangeDebounceRequest}/>
                 <Button name={'Add new task'} onClick={addTaskHandler}/>
             </SearchBlock>
 

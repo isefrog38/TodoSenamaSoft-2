@@ -4,7 +4,7 @@ export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed';
 
 export type AppInitialStateType = {
     params : {
-        searchTodo: string
+        search: string
         pageSize: number
         page: number
     }
@@ -18,7 +18,7 @@ const initialState: AppInitialStateType = {
     params: {
         page: 1,
         pageSize: 10,
-        searchTodo: '',
+        search: '',
     },
     status: 'succeeded',
     error: null,
@@ -43,7 +43,7 @@ const AppSlice = createSlice({
             state.params.pageSize = action.payload.pageCount;
         },
         setSearchTodoAC(state, action: PayloadAction<{ searchTodo: string }>) {
-            state.params.searchTodo = action.payload.searchTodo;
+            state.params.search = action.payload.searchTodo;
         },
         getPageAC(state, action: PayloadAction<{ page: number }>) {
             state.params.page = action.payload.page;
