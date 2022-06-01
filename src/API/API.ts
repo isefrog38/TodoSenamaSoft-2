@@ -1,10 +1,11 @@
 import axios, {AxiosResponse} from "axios";
 import {FileType, TodolistType} from "../Types/TodolistType";
+import {FilterType} from "../Redux-Store/App-reducer";
 
 const instance = axios.create({baseURL: 'http://localhost:7574/'});
 
 export const todolistsAPI = {
-    getTodolists(params: {pageSize: number, page: number, search?: string}) {
+    getTodolists(params: {pageSize: number, page: number, filter: FilterType, search?: string}) {
         return instance.get<{todolists: TodolistType[], totalCount: number}>(`todolists`, {params});
     },
 

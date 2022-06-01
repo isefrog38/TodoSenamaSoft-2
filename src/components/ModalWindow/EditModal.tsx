@@ -79,15 +79,15 @@ export const EditModal = ({el, setShow}: EditPackModalType) => {
                             />
                         </InputWrapper>
 
-                        <div style={{marginTop: "20px"}}>
-                            <input type={"file"} style={{display:"none"}} ref={fileInput} onChange={onChange}/>
-                            <Button bg={colors.FilterButtonColor}
-                                    br={5}
-                                    width={30}
-                                    name={"Choose File"}
-                                    onClick={() => fileInput?.current?.click()}
-                            />
-                        </div>
+                        {/*<div style={{marginTop: "20px"}}>*/}
+                        {/*    <input type={"file"} style={{display:"none"}} ref={fileInput} onChange={onChange}/>*/}
+                        {/*    <Button bg={colors.FilterButtonColor}*/}
+                        {/*            br={5}*/}
+                        {/*            width={30}*/}
+                        {/*            name={"Choose File"}*/}
+                        {/*            onClick={() => fileInput?.current?.click()}*/}
+                        {/*    />*/}
+                        {/*</div>*/}
 
                         <ButtonsBlock>
                             <ButtonCancel onClick={closeModalClick}>

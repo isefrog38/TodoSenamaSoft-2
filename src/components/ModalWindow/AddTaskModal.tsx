@@ -21,6 +21,7 @@ import {Button} from "../Common/Buttons/Button";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styled from "styled-components";
+import {fileToBase64} from "../../UtilsFunction/Error-Utils";
 
 type AddPackModalType = {
     setShow: (show: boolean) => void
@@ -38,13 +39,19 @@ export const AddTaskModal = ({setShow}: AddPackModalType) => {
     const [fileUrl, setFileURL] = useState<string | null>(null);
     const fileInput = useRef<HTMLInputElement>(null);
     const [date, setDate] = useState(new Date());
+
+
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
-        if (e.target.files && e.target.files[0]) {
-            setFile(e.target.files && e.target.files[0]);
-            setFileURL(window.URL.createObjectURL(e.target.files && e.target.files[0]));
-        }
+        let fileTarget = e.target.files && e.target.files[0];
+        if (fileTarget) fileToBase64(fileTarget, (err:any, result: string) => {
+            if (result) {
+                setFile(fileTarget);
+                setFileURL(result);
+            }
+        })
     };
+
 
     const closeModalClick = () => setShow(false);
 
@@ -96,12 +103,17 @@ export const AddTaskModal = ({setShow}: AddPackModalType) => {
                             />
                         </InputWrapper>
                         <div style={{display: "flex", marginTop: "20px"}}>
-                            <input type={"file"} style={{display: "none"}} ref={fileInput} onChange={onChange}/>
+                            <input type={"file"}
+                                   style={{display: "none"}}
+                                   ref={fileInput}
+                                   onChange={onChange}
+                            />
                             <Button bg={colors.FilterButtonColor}
                                     br={5}
                                     width={40}
                                     name={"Uploads File"}
                                     onClick={() => fileInput?.current?.click()}
+                                    button={"button"}
                             />
                             <DatePikerDiv>
                                 <DatePicker selected={date} onChange={(date: Date) => setDate(date)}/>
@@ -125,5 +137,5 @@ export const AddTaskModal = ({setShow}: AddPackModalType) => {
 
 
 const DatePikerDiv = styled.div`
-    margin-left: 30px;
+  margin-left: 30px;
 `

@@ -42,7 +42,7 @@ export const AllPacks = memo(() => {
 
             <SearchBlock>
                     <SearchInput valueSearch={stateApp.params.search} onChangeWithDebounce={onChangeDebounceRequest}/>
-                <Button name={'Add new task'} onClick={addTaskHandler}/>
+                <Button button={"button"} name={'Add new task'} onClick={addTaskHandler}/>
             </SearchBlock>
 
             <CardTable itemPack={stateTodo} isFetching={stateApp.isFetching}/>

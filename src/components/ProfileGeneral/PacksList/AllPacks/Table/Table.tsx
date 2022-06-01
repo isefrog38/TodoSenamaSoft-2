@@ -4,7 +4,9 @@ import {TableElemets} from "./TableElements/TableElemets";
 import {PacksBlock} from '../../../../StylesComponents/CardsWrapper';
 import styled from "styled-components";
 import {InitialStateTodolistDomainType} from "../../../../../Redux-Store/todolists-reducer";
-import {useTypedDispatch} from "../../../../../Redux-Store/store";
+import {useAppSelector, useTypedDispatch} from "../../../../../Redux-Store/store";
+import {setFilterAC} from "../../../../../Redux-Store/App-reducer";
+import {getTodolistsTC} from "../../../../../Thunk/Todolist-thunk";
 
 type CardTableType = {
     itemPack: InitialStateTodolistDomainType[]
@@ -18,10 +20,16 @@ const TableList = [
 
 export const CardTable = ({itemPack, isFetching}: CardTableType) => {
 
+    const {filter} = useAppSelector(state => state.AppReducer.params);
     const [up, setUp] = useState<boolean>(false);
+    const dispatch = useTypedDispatch();
 
     const onFilterColumnClick = () => {
         setUp(!up);
+        filter === '0'
+            ? dispatch(setFilterAC({filter: '1'}))
+            : dispatch(setFilterAC({filter: '0'}))
+        dispatch(getTodolistsTC());
     }
 
     return (

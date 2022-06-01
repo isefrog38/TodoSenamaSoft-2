@@ -16,11 +16,13 @@ export const handleServerNetworkError = (error: {message: string}, dispatch: Dis
     dispatch(setAppStatusAC({status: 'failed'}))
 }
 
-
-export const Time = () => {
-    let day = new Date().getDate();
-    let year = new Date().getFullYear();
-    let month = new Date().getMonth() + 1;
-
-    return `${day < 10 ? `0${day}` : day}-${month < 10 ? `0${month}` : month}-${year}`
+export const fileToBase64 = (file: File | null, cb: any) => {
+    const reader = new FileReader()
+    if (file) reader.readAsDataURL(file)
+    reader.onload = function () {
+        cb(null, reader.result)
+    }
+    reader.onerror = function (error) {
+        cb(error, null)
+    }
 }

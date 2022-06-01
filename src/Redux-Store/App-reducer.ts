@@ -1,12 +1,14 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed';
+export type FilterType = '0' | '1';
 
 export type AppInitialStateType = {
     params : {
         search: string
         pageSize: number
         page: number
+        filter: FilterType
     }
     totalCount: number | null
     status: RequestStatusType
@@ -19,6 +21,7 @@ const initialState: AppInitialStateType = {
         page: 1,
         pageSize: 10,
         search: '',
+        filter: '0',
     },
     status: 'succeeded',
     error: null,
@@ -51,9 +54,12 @@ const AppSlice = createSlice({
         setTotalPageCountTaskAC(state, action: PayloadAction<{ totalCount: number }>) {
             state.totalCount = action.payload.totalCount;
         },
+        setFilterAC(state, action: PayloadAction<{ filter: FilterType }>) {
+            state.params.filter = action.payload.filter;
+        },
     },
 });
 
 export const AppReducer = AppSlice.reducer;
 
-export const {setTotalPageCountTaskAC, getPageAC, setIsFetchingAC, setSearchTodoAC, setPageCountAC, setAppStatusAC, setAppErrorMessageAC} = AppSlice.actions;
+export const {setFilterAC, setTotalPageCountTaskAC, getPageAC, setIsFetchingAC, setSearchTodoAC, setPageCountAC, setAppStatusAC, setAppErrorMessageAC} = AppSlice.actions;
