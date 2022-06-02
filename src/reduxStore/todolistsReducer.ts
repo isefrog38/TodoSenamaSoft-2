@@ -1,4 +1,4 @@
-import {RequestStatusType} from "./App-reducer";
+import {RequestStatusType} from "./appReducer";
 import {createAction, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {TodolistType} from "../types/TodolistType";
 

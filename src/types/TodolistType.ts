@@ -2,12 +2,20 @@ export type TodolistType = {
     _id: string
     title: string
     addedDate: string
-    order: number
-    files?: FileType
+    files?: 1 | 0
+}
+
+export type FileResponseType = {
+    id: string
+    taskId: string
+    name: string | undefined,
+    type: string | undefined,
+    size: number | undefined,
+    lastModified: number | undefined,
+    path: string,
 }
 
 export type FileType = {
-    id: string
     name: string | undefined,
     type: string | undefined,
     size: number | undefined,

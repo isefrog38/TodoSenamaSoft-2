@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useRef, useState} from 'react';
+import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
 import {
     ButtonCancel, ButtonSave, ButtonsBlock, Close, Input,
     InputWrapper, Modal, ModalTextWrapper, ModalWindow, ModalWrapper, WrapperTextAndClose
@@ -14,6 +14,8 @@ import { FormWrapper, TextAuthWrapper } from '../stylesComponents/AuthCardWrappe
 import { colors } from '../stylesComponents/Colors';
 
 type AddPackModalType = {
+    name?: string
+    id?: string
     setShow: (show: boolean) => void
 }
 
@@ -21,7 +23,7 @@ export type FormikErrorType = {
     nameTask?: string
 };
 
-export const AddTaskModal = ({setShow}: AddPackModalType) => {
+export const AddTaskModal = ({setShow, id, name}: AddPackModalType) => {
 
     const maxLengthInput = 30;
     const dispatch = useTypedDispatch();
@@ -57,16 +59,15 @@ export const AddTaskModal = ({setShow}: AddPackModalType) => {
         onSubmit: (values) => {
             if (file && fileUrl) {
                 let fileTyped = {
-                    id: new Date().getTime().toString(),
                     name: file?.name,
                     type: file?.type,
                     size: file?.size,
                     lastModified: file?.lastModified,
                     path: fileUrl,
                 };
-                dispatch(createTodolistTC(values.nameTask, date, fileTyped));
+                dispatch(createTodolistTC(values.nameTask, date, fileTyped, id));
             } else {
-                dispatch(createTodolistTC(values.nameTask, date));
+                dispatch(createTodolistTC(values.nameTask, date, undefined, id));
             }
             setShow(false);
         },
@@ -78,7 +79,7 @@ export const AddTaskModal = ({setShow}: AddPackModalType) => {
                 <FormWrapper onSubmit={loginForm.handleSubmit}>
                     <Modal>
                         <WrapperTextAndClose>
-                            <ModalTextWrapper>Add Task</ModalTextWrapper>
+                            <ModalTextWrapper>{name ? name : 'Add Task'}</ModalTextWrapper>
                             <Close onClick={closeModalClick}/>
                         </WrapperTextAndClose>
 
@@ -114,7 +115,7 @@ export const AddTaskModal = ({setShow}: AddPackModalType) => {
                                 Cancel
                             </ButtonCancel>
                             <ButtonSave type="submit"
-                                        disabled={!loginForm.isValid}>
+                                        disabled={!(loginForm.isValid && loginForm.values.nameTask?.length > 0)}>
                                 Save
                             </ButtonSave>
                         </ButtonsBlock>

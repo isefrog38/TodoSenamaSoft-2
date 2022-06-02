@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {FileResponseType} from "../types/TodolistType";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed';
 export type FilterType = '0' | '1';
@@ -10,6 +11,7 @@ export type AppInitialStateType = {
         page: number
         filter: FilterType
     }
+    file: FileResponseType | null
     totalCount: number | null
     status: RequestStatusType
     error: null | string
@@ -23,6 +25,7 @@ const initialState: AppInitialStateType = {
         search: '',
         filter: '0',
     },
+    file: null,
     status: 'succeeded',
     error: null,
     isFetching: true,
@@ -57,9 +60,12 @@ const AppSlice = createSlice({
         setFilterAC(state, action: PayloadAction<{ filter: FilterType }>) {
             state.params.filter = action.payload.filter;
         },
+        setFileAC(state, action: PayloadAction<{ file: FileResponseType }>) {
+            state.file = action.payload.file;
+        },
     },
 });
 
 export const AppReducer = AppSlice.reducer;
 
-export const {setFilterAC, setTotalPageCountTaskAC, getPageAC, setIsFetchingAC, setSearchTodoAC, setPageCountAC, setAppStatusAC, setAppErrorMessageAC} = AppSlice.actions;
+export const {setFileAC, setFilterAC, setTotalPageCountTaskAC, getPageAC, setIsFetchingAC, setSearchTodoAC, setPageCountAC, setAppStatusAC, setAppErrorMessageAC} = AppSlice.actions;

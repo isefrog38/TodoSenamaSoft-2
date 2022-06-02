@@ -3,12 +3,13 @@ import {LoadingTable} from "../../../../common/loading/LoadingTable";
 import {TableElemets} from "./TableElements/TableElemets";
 import {PacksBlock} from '../../../../stylesComponents/CardsWrapper';
 import styled from "styled-components";
-import {InitialStateTodolistDomainType} from "../../../../../reduxStore/todolists-reducer";
+import {InitialStateTodolistDomainType} from "../../../../../reduxStore/todolistsReducer";
 import {useAppSelector, useTypedDispatch} from "../../../../../reduxStore/store";
-import {setFilterAC} from "../../../../../reduxStore/App-reducer";
+import {setFilterAC} from "../../../../../reduxStore/appReducer";
 import {getTodolistsTC} from "../../../../../thunk/Todolist-thunk";
 
 type CardTableType = {
+    setShowAddModal: (el: boolean) => void
     itemPack: InitialStateTodolistDomainType[]
     isFetching: boolean
 };
@@ -18,7 +19,7 @@ const TableList = [
     {id: 5, name: "Actions"},
 ];
 
-export const CardTable = ({itemPack, isFetching}: CardTableType) => {
+export const CardTable = ({itemPack, isFetching, setShowAddModal}: CardTableType) => {
 
     const {filter} = useAppSelector(state => state.AppReducer.params);
     const [up, setUp] = useState<boolean>(false);
@@ -46,7 +47,7 @@ export const CardTable = ({itemPack, isFetching}: CardTableType) => {
                 </ItemColumn>
                 {isFetching
                     ? <LoadingTable/>
-                    : itemPack.map(el => <TableElemets key={el._id} el={el}/>)
+                    : itemPack.map(el => <TableElemets key={el._id} el={el} setShowAddModal={setShowAddModal}/>)
                 }
             </Table>
         </PacksBlock>
@@ -71,6 +72,7 @@ const Span = styled.span<{ up?: boolean }>`
 `;
 
 const Table = styled.div`
+  min-height: 400px;
   height: auto;
 `;
 

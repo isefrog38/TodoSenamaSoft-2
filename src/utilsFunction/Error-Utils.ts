@@ -1,18 +1,18 @@
 import {Dispatch} from 'redux';
-import {ResponseType} from "../types/TodolistType";
-import {setAppErrorMessageAC, setAppStatusAC} from "../reduxStore/App-reducer";
+import {setAppErrorMessageAC, setAppStatusAC, setIsFetchingAC} from "../reduxStore/appReducer";
 
-export const handleServerAppError = <T>(data: ResponseType<T>, dispatch: Dispatch) => {
-    if (data.messages.length) {
-        dispatch(setAppErrorMessageAC({error: data.messages[0]}))
+export const handleServerAppError = (message: string, dispatch: Dispatch) => {
+    if (message) {
+        dispatch(setAppErrorMessageAC({error: message}))
     } else {
         dispatch(setAppErrorMessageAC({error: 'Some error occurred'}))
     }
     dispatch(setAppStatusAC({status: 'failed'}))
+    dispatch(setIsFetchingAC({isFetching: false}));
 }
 
-export const handleServerNetworkError = (error: {message: string}, dispatch: Dispatch) => {
-    dispatch(setAppErrorMessageAC({error: error.message}))
+export const handleServerNetworkError = (error: string, dispatch: Dispatch) => {
+    dispatch(setAppErrorMessageAC({error: error}))
     dispatch(setAppStatusAC({status: 'failed'}))
 }
 

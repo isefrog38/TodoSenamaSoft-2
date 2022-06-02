@@ -1,7 +1,7 @@
-import {todolistsReducer} from './todolists-reducer';
+import {todolistsReducer} from './todolistsReducer';
 import {Action, AnyAction, combineReducers} from 'redux';
 import thunkMiddleware, {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {AppReducer} from "./App-reducer";
+import {AppReducer} from "./appReducer";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {configureStore} from "@reduxjs/toolkit";
 

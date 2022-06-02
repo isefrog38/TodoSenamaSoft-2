@@ -1,7 +1,7 @@
-import {changeTodolistTitleAC, removeTodolistAC, setTodolistsAC} from "../reduxStore/todolists-reducer";
-import {setAppStatusAC, setIsFetchingAC, setTotalPageCountTaskAC} from "../reduxStore/App-reducer";
+import {changeTodolistTitleAC, removeTodolistAC, setTodolistsAC} from "../reduxStore/todolistsReducer";
+import {setAppStatusAC, setFileAC, setIsFetchingAC, setTotalPageCountTaskAC} from "../reduxStore/appReducer";
 import {AppRootStateType, AppThunkType} from "../reduxStore/store";
-import {handleServerNetworkError} from "../utilsFunction/Error-Utils";
+import {handleServerAppError, handleServerNetworkError} from "../utilsFunction/Error-Utils";
 import {todolistsAPI} from "../api/API";
 import {FileType} from "../types/TodolistType";
 
@@ -10,8 +10,8 @@ export const getTodolistsTC = (): AppThunkType =>
 
         dispatch(setIsFetchingAC({isFetching: true}));
 
-    try {
-        let {params} = getState().AppReducer;
+        try {
+            let {params} = getState().AppReducer;
             const response = await todolistsAPI.getTodolists(params);
             if (response.status === 200) {
                 dispatch(setTodolistsAC({todolists: response.data.todolists}));
@@ -19,12 +19,12 @@ export const getTodolistsTC = (): AppThunkType =>
                 dispatch(setAppStatusAC({status: 'succeeded'}));
                 dispatch(setIsFetchingAC({isFetching: false}));
             }
-    } catch (e) {
-        if (e instanceof Error) {
-            handleServerNetworkError(e, dispatch);
+        } catch (e) {
+            if (e instanceof Error) {
+                handleServerNetworkError(e.message, dispatch);
+            }
         }
     }
-}
 
 export const removeTodolistTC = (todolistId: string): AppThunkType => async dispatch => {
 
@@ -33,46 +33,48 @@ export const removeTodolistTC = (todolistId: string): AppThunkType => async disp
     try {
         const response = await todolistsAPI.removeTodolist(todolistId);
         if (response.status === 200) {
-            dispatch(getTodolistsTC());
             dispatch(removeTodolistAC({todolistId}));
+            dispatch(getTodolistsTC());
         }
     } catch (e) {
         if (e instanceof Error) {
-            handleServerNetworkError(e, dispatch);
+            handleServerNetworkError(e.message, dispatch);
         }
     }
 }
 
 
-export const createTodolistTC = (title: string, date: Date, file?: FileType): AppThunkType => async dispatch => {
+export const createTodolistTC = (title: string, date: Date, file?: FileType, id?: string): AppThunkType => async dispatch => {
 
     dispatch(setIsFetchingAC({isFetching: true}));
 
     try {
-        const response = await todolistsAPI.createTodolist(title, date, file);
+        const response = await todolistsAPI.createTodolist(title, date, file, id);
         if (response.status === 200) {
             dispatch(getTodolistsTC());
         }
     } catch (e) {
         if (e instanceof Error) {
-            handleServerNetworkError(e, dispatch);
+            handleServerNetworkError(e.message, dispatch);
         }
     }
 }
 
-export const updateTodolistTC = (todolistId: string, title: string, date: Date, file?: FileType): AppThunkType => async dispatch => {
-
-    dispatch(setIsFetchingAC({isFetching: true}));
-
+export const getFile = (id: string): AppThunkType => async dispatch => {
     try {
-        const response = await todolistsAPI.updateTodolist(todolistId, title, date, file);
+        const response = await todolistsAPI.getFile(id);
         if (response.status === 200) {
-            dispatch(changeTodolistTitleAC({todolistId, title}));
-            dispatch(setIsFetchingAC({isFetching: false}));
+            let file = response.data.file;
+            if (file?.name) {
+                let tempLink = document.createElement('a');
+                tempLink.href = file?.path;
+                tempLink.setAttribute('download', file?.name);
+                tempLink.click();
+            }
         }
     } catch (e) {
         if (e instanceof Error) {
-            handleServerNetworkError(e, dispatch);
+            handleServerNetworkError(e.message, dispatch);
         }
     }
 }

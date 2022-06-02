@@ -1,18 +1,19 @@
 import React from 'react';
 import {ActiveButtonsTable} from "../ActiveButtonsTable/ActiveButtonsTable";
 import styled from "styled-components";
-import {InitialStateTodolistDomainType} from "../../../../../../reduxStore/todolists-reducer";
+import {InitialStateTodolistDomainType} from "../../../../../../reduxStore/todolistsReducer";
 
 type TableElementsType = {
+    setShowAddModal: (el: boolean) => void
     el: InitialStateTodolistDomainType
 }
 
-export const TableElemets = ({el}: TableElementsType) => {
+export const TableElemets = ({el, setShowAddModal}: TableElementsType) => {
     return (
         <GeneralBlock>
              <Item>{el.title}</Item>
             <Item>{el.addedDate.length <= 10 ? el.addedDate : el.addedDate.slice(0, 10).split("-").reverse().join("-")}</Item>
-            <Item> <ActiveButtonsTable el={el}/> </Item>
+            <Item> <ActiveButtonsTable el={el} setShowAddModal={setShowAddModal}/> </Item>
         </GeneralBlock>
     );
 };

@@ -7,11 +7,10 @@ import {Button} from "../../../common/buttons/Button";
 import {PageSelect} from "../../../../utilsFunction/PageSelector";
 import styled from "styled-components";
 import {useAppSelector, useTypedDispatch} from "../../../../reduxStore/store";
-import {getTodolistsTC} from "../../../../thunk/Todolist-thunk";
-import {AppInitialStateType, getPageAC, setPageCountAC, setSearchTodoAC} from "../../../../reduxStore/App-reducer";
+import {AppInitialStateType, getPageAC, setPageCountAC, setSearchTodoAC} from "../../../../reduxStore/appReducer";
 import {SearchInput} from "../../../common/searchInput/SearchInput";
 import {AddTaskModal} from "../../../modalWindow/AddTaskModal";
-import {InitialStateTodolistDomainType} from "../../../../reduxStore/todolists-reducer";
+import {InitialStateTodolistDomainType} from "../../../../reduxStore/todolistsReducer";
 
 export const AllPacks = memo(() => {
 
@@ -21,18 +20,11 @@ export const AllPacks = memo(() => {
     const dispatch = useTypedDispatch();
 
     const addTaskHandler = () => setShowAddModal(true);
-    const onPageChanged = (page: number) => {
-        dispatch(getPageAC({page}));
-        dispatch(getTodolistsTC());
-    };
-    const onChangeDebounceRequest = (searchTodo: string) => {
-        dispatch(setSearchTodoAC({searchTodo}));
-        dispatch(getTodolistsTC());
-    };
+    const onPageChanged = (page: number) => dispatch(getPageAC({page}));
+    const onChangeDebounceRequest = (searchTodo: string) => dispatch(setSearchTodoAC({searchTodo}));
     const onChangePageSelector = (page: number) => {
         dispatch(setPageCountAC({pageCount: page}));
         dispatch(getPageAC({page: 1}));
-        dispatch(getTodolistsTC());
     }
 
     return (
@@ -45,7 +37,7 @@ export const AllPacks = memo(() => {
                 <Button button={"button"} name={'Add new task'} onClick={addTaskHandler}/>
             </SearchBlock>
 
-            <CardTable itemPack={stateTodo} isFetching={stateApp.isFetching}/>
+            <CardTable itemPack={stateTodo} isFetching={stateApp.isFetching} setShowAddModal={setShowAddModal}/>
 
             <PaginationBlock>
                 {stateApp.totalCount && stateApp.totalCount > 10 &&

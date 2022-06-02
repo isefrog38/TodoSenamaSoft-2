@@ -3,7 +3,7 @@ import {Loading} from "./components/common/loading/Loading";
 import {AppWrapper} from "./components/stylesComponents/AuthCardWrapper";
 import {Snackbar} from "./components/common/snackBar/SnackBar";
 import {useAppSelector, useTypedDispatch} from "./reduxStore/store";
-import {AppInitialStateType} from "./reduxStore/App-reducer";
+import {AppInitialStateType} from "./reduxStore/appReducer";
 import {PacksList} from "./components/profileGeneral/PacksList/PacksList";
 import {getTodolistsTC} from "./thunk/Todolist-thunk";
 
@@ -14,7 +14,7 @@ export const App = () => {
 
     useEffect(() => {
         dispatch(getTodolistsTC());
-    }, [dispatch]);
+    }, [stateApp.params]);
 
     return (
         <AppWrapper>
