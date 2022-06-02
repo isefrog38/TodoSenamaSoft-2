@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
-import {Loading} from "./components/Common/Loading/Loading";
-import {AppWrapper} from "./components/StylesComponents/AuthCardWrapper";
-import {Snackbar} from "./components/Common/SnackBar/SnackBar";
-import {useAppSelector, useTypedDispatch} from "./Redux-Store/store";
-import {AppInitialStateType} from "./Redux-Store/App-reducer";
-import {PacksList} from "./components/ProfileGeneral/PacksList/PacksList";
-import {getTodolistsTC} from "./Thunk/Todolist-thunk";
+import {Loading} from "./components/common/loading/Loading";
+import {AppWrapper} from "./components/stylesComponents/AuthCardWrapper";
+import {Snackbar} from "./components/common/snackBar/SnackBar";
+import {useAppSelector, useTypedDispatch} from "./reduxStore/store";
+import {AppInitialStateType} from "./reduxStore/App-reducer";
+import {PacksList} from "./components/profileGeneral/PacksList/PacksList";
+import {getTodolistsTC} from "./thunk/Todolist-thunk";
 
 export const App = () => {
 
