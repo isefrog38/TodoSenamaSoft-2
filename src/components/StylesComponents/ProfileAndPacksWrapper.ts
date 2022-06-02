@@ -3,7 +3,8 @@ import {colors} from "./Colors";
 
 export const ProfileWrapper = styled.div`
   width: 100%;
-  height: 88vh;
+  height: auto;
+  min-height: 500px;
   margin-top: 100px;
   padding: 1.2vw 2.4vw;
   border-radius: 10px;
