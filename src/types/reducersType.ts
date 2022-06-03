@@ -1,10 +1,10 @@
-import {FileResponseType, TodolistType} from "./todolistType";
+import {LanguageResponseType, TodolistType} from "./todolistType";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed';
 
 export type FilterType = '0' | '1';
 
-export type LanguageType = "Rus" | "Eng";
+export type LanguageType = "rus" | "eng";
 
 export type AppInitialStateType = {
     params : {
@@ -14,6 +14,7 @@ export type AppInitialStateType = {
         filter: FilterType
     }
     language: LanguageType
+    translation:LanguageResponseType
     totalCount: number | null
     status: RequestStatusType
     error: null | string

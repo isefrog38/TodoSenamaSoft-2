@@ -1,5 +1,5 @@
 import {setTodolistsAC} from "../reduxStore/todolistsReducer";
-import {setAppStatusAC, setIsFetchingAC, setTotalPageCountTaskAC} from "../reduxStore/appReducer";
+import {setAppStatusAC, setIsFetchingAC, setLanguageFileAC, setTotalPageCountTaskAC} from "../reduxStore/appReducer";
 import {AppRootStateType, AppThunkType} from "../reduxStore/store";
 import {handleServerNetworkError} from "../utilsFunction/Error-Utils";
 import {todolistsAPI} from "../api/API";
@@ -81,14 +81,23 @@ export const getFile = (id: string): AppThunkType => async dispatch => {
 export const getLanguageTC = (): AppThunkType =>
     async (dispatch, getState: () => AppRootStateType) => {
 
-        // try {
-        //     const { language } = getState().AppReducer
-        //     const response = await todolistsAPI.getLanguage(language);
-        //     if (response.status === 200) {
-        //     }
-        // } catch (e) {
-        //     if (e instanceof Error) {
-        //         handleServerNetworkError(e.message, dispatch);
-        //     }
-        // }
+        dispatch(setAppStatusAC({status: 'loading'}));
+
+        try {
+            const {language} = getState().AppReducer
+            const response = await todolistsAPI.getLanguage(language);
+            if (response.status === 200) {
+                if (response.data.file.Eng) {
+                    dispatch(setLanguageFileAC({translation: response.data.file.Eng}));
+                    dispatch(setAppStatusAC({status: 'succeeded'}));
+                } else {
+                    dispatch(setLanguageFileAC({translation: response.data.file.Rus}));
+                    dispatch(setAppStatusAC({status: 'succeeded'}));
+                }
+            }
+        } catch (e) {
+            if (e instanceof Error) {
+                handleServerNetworkError(e.message, dispatch);
+            }
+        }
     }

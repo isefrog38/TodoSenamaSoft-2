@@ -14,21 +14,20 @@ export const Header = () => {
     const { t } = useTranslation();
 
     const onLanguageChange = (language: LanguageType) => {
-        dispatch(setLanguageAC({language}));
-        // dispatch(getLanguageTC());
+            dispatch(setLanguageAC({language}));
+            dispatch(getLanguageTC());
     }
 
     return (
         <div className={s.main_header}>
             <h1 className={s.h1}>
                 {t('todolist_senamaSoft')}
-                {/*Todolist for <b>SenamaSoft</b>*/}
             </h1>
             <div className={s.select}>
                 <PageSelect value={language}
                             pd={15}
                             onChange={onLanguageChange}
-                            items={["Eng", "Rus"] as LanguageType[]}
+                            items={["eng", "rus"] as LanguageType[]}
                 />
             </div>
         </div>

@@ -22,7 +22,7 @@ export const todolistsAPI = {
         return instance.get<{file: FileResponseType}>(`todolists/file/${id}`);
     },
 
-    getLanguage(language: LanguageType) {
-        return instance.get(`todolists/language/${language}`);
+    getLanguage(lang: LanguageType) {
+        return instance.get(`todolists/language/${lang}`);
     },
 }

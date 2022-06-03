@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppInitialStateType, FilterType, LanguageType, RequestStatusType} from "../types/reducersType";
+import {LanguageResponseType} from "../types/todolistType";
 
 const initialState: AppInitialStateType = {
     params: {
@@ -8,7 +9,17 @@ const initialState: AppInitialStateType = {
         search: '',
         filter: '0',
     },
-    language: "Eng",
+    translation: {
+        "todolist_senamaSoft": "Todolist SenamaSoft Company",
+        "name_table": "Name",
+        "date_table": "Added Date",
+        "actions_table": "Actions",
+        "show": "Show",
+        "task_per_page": "Task per page",
+        "todolist_table": "Todolist",
+        "add_button": "Add New Task",
+    } as LanguageResponseType,
+    language: 'eng' as LanguageType,
     status: 'loading',
     error: null,
     isFetching: true,
@@ -46,11 +57,15 @@ const AppSlice = createSlice({
         setLanguageAC(state, action: PayloadAction<{ language: LanguageType }>) {
             state.language = action.payload.language;
         },
+        setLanguageFileAC(state, action: PayloadAction<{ translation: LanguageResponseType }>) {
+            state.translation = action.payload.translation;
+        },
     },
 });
 
 export const AppReducer = AppSlice.reducer;
 
-export const {setLanguageAC, setFilterAC, setTotalPageCountTaskAC, getPageAC,
+export const {
+    setLanguageAC, setFilterAC, setTotalPageCountTaskAC, getPageAC, setLanguageFileAC,
     setIsFetchingAC, setSearchTodoAC, setPageCountAC, setAppStatusAC, setAppErrorMessageAC
 } = AppSlice.actions;
