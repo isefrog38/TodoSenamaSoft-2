@@ -22,7 +22,7 @@ export const ActiveButtonsTable = ({el}: ActiveButtonsTableType) => {
 
     return (
         <>
-            {editModal && <AddTaskModal name={"Edit Task"} id={el._id} setShow={setEditModal}/>}
+            {editModal && <AddTaskModal name={"Edit Task"} el={el} setShow={setEditModal}/>}
             {deleteModal && <DeleteTaskModal id={el._id} setShow={setDeleteModal}/>}
             <Button type={"button"} color={colors.Blue} bgColor={"#c6a5f1"} onClick={downloadFile}
                     disabled={!(el.file === 1)}>

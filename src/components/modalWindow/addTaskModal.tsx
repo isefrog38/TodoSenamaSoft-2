@@ -1,10 +1,10 @@
-import React, {ChangeEvent, useRef, useState} from 'react';
+import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
 import {
     ButtonCancel, ButtonSave, ButtonsBlock, Close, Input,
     InputWrapper, Modal, ModalTextWrapper, ModalWindow, ModalWrapper, WrapperTextAndClose
 } from "../stylesComponents/modalWrappers";
 import {useFormik} from "formik";
-import {useTypedDispatch} from "../../reduxStore/store";
+import {useAppSelector, useTypedDispatch} from "../../reduxStore/store";
 import {createTodolistTC} from "../../thunk/todolistThunk";
 import {Button} from "../common/buttons/Button";
 import DatePicker from "react-datepicker";
@@ -12,10 +12,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import {fileToBase64} from "../../utilsFunction/Error-Utils";
 import { FormWrapper, TextAuthWrapper } from '../stylesComponents/taskWrapper';
 import { colors } from '../stylesComponents/colors';
+import {AppInitialStateType, InitialStateTodolistDomainType} from "../../types/reducersType";
 
 type AddPackModalType = {
     name?: string
-    id?: string
+    el?: InitialStateTodolistDomainType
     setShow: (show: boolean) => void
 }
 
@@ -23,9 +24,10 @@ export type FormikErrorType = {
     nameTask?: string
 };
 
-export const AddTaskModal = ({setShow, id, name}: AddPackModalType) => {
+export const AddTaskModal = ({setShow, el, name}: AddPackModalType) => {
 
     const maxLengthInput = 30;
+    const stateApp = useAppSelector<AppInitialStateType>(state => state.AppReducer);
     const dispatch = useTypedDispatch();
     const [file, setFile] = useState<File | null>(null);
     const [fileUrl, setFileURL] = useState<string | null>(null);
@@ -65,13 +67,18 @@ export const AddTaskModal = ({setShow, id, name}: AddPackModalType) => {
                     lastModified: file?.lastModified,
                     path: fileUrl,
                 };
-                dispatch(createTodolistTC(values.nameTask, date, fileTyped, id));
+                dispatch(createTodolistTC(values.nameTask, date, fileTyped, el?._id));
             } else {
-                dispatch(createTodolistTC(values.nameTask, date, undefined, id));
+                dispatch(createTodolistTC(values.nameTask, date, undefined, el?._id));
             }
             setShow(false);
         },
     });
+
+    useEffect(() => {
+        loginForm.setFieldValue('nameTask', el?.title);
+        loginForm.setFieldValue('date', el?.addedDate);
+    }, [el?.title])
 
     return (
         <ModalWrapper>
@@ -107,7 +114,11 @@ export const AddTaskModal = ({setShow, id, name}: AddPackModalType) => {
                                     button={"button"}
                             />
                             <div style={{marginLeft: "30px"}}>
-                                <DatePicker selected={date} onChange={(date: Date) => setDate(date)}/>
+                                <DatePicker id="date"
+                                            selected={date}
+                                            onChange={(date: Date) => setDate(date)}
+                                            value={el?.addedDate.slice(0, 10).split("-").reverse().join("-")}
+                                />
                             </div>
                         </div>
                         <ButtonsBlock>

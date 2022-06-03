@@ -14,7 +14,6 @@ export type AppInitialStateType = {
         filter: FilterType
     }
     language: LanguageType
-    file: FileResponseType | null
     totalCount: number | null
     status: RequestStatusType
     error: null | string
