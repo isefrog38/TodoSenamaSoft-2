@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
-import {colors} from "../stylesComponents/Colors";
+import {colors} from "../stylesComponents/colors";
 import {Arrow} from "../../utilsFunction/Arrow";
 
 type PaginationType = {

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {colors} from "./Colors";
+import {colors} from "./colors";
 
 export const ProfileWrapper = styled.div`
   width: 100%;

@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from "axios";
-import {FileResponseType, FileType, TodolistType} from "../types/TodolistType";
+import {FileResponseType, FileType, TodolistType} from "../types/todolistType";
 import {FilterType} from "../reduxStore/appReducer";
 
 const instance = axios.create({baseURL: 'http://localhost:7574/'});

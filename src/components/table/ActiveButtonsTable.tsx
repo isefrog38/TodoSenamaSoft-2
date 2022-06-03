@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
-import {colors} from "../../../../../stylesComponents/Colors";
-import {InitialStateTodolistDomainType} from "../../../../../../reduxStore/todolistsReducer";
-import {DeleteTaskModal} from "../../../../../modalWindow/DeleteModal";
-import {useTypedDispatch} from "../../../../../../reduxStore/store";
-import {getFile} from "../../../../../../thunk/Todolist-thunk";
-import {AddTaskModal} from "../../../../../modalWindow/AddTaskModal";
+import {colors} from "../stylesComponents/colors";
+import {InitialStateTodolistDomainType} from "../../reduxStore/todolistsReducer";
+import {DeleteTaskModal} from "../modalWindow/deleteModal";
+import {useTypedDispatch} from "../../reduxStore/store";
+import {getFile} from "../../thunk/todolistThunk";
+import {AddTaskModal} from "../modalWindow/addTaskModal";
 
 type ActiveButtonsTableType = {
     setShowAddModal: (el: boolean) => void

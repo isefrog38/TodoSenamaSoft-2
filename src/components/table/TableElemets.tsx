@@ -1,7 +1,7 @@
 import React from 'react';
-import {ActiveButtonsTable} from "../ActiveButtonsTable/ActiveButtonsTable";
+import {ActiveButtonsTable} from "./ActiveButtonsTable";
 import styled from "styled-components";
-import {InitialStateTodolistDomainType} from "../../../../../../reduxStore/todolistsReducer";
+import {InitialStateTodolistDomainType} from "../../reduxStore/todolistsReducer";
 
 type TableElementsType = {
     setShowAddModal: (el: boolean) => void

@@ -1,13 +1,13 @@
-import {changeTodolistTitleAC, removeTodolistAC, setTodolistsAC} from "../reduxStore/todolistsReducer";
-import {setAppStatusAC, setFileAC, setIsFetchingAC, setTotalPageCountTaskAC} from "../reduxStore/appReducer";
+import {setTodolistsAC} from "../reduxStore/todolistsReducer";
+import {setAppStatusAC, setIsFetchingAC, setTotalPageCountTaskAC} from "../reduxStore/appReducer";
 import {AppRootStateType, AppThunkType} from "../reduxStore/store";
-import {handleServerAppError, handleServerNetworkError} from "../utilsFunction/Error-Utils";
+import {handleServerNetworkError} from "../utilsFunction/Error-Utils";
 import {todolistsAPI} from "../api/API";
-import {FileType} from "../types/TodolistType";
+import {FileType} from "../types/todolistType";
 
 export const getTodolistsTC = (): AppThunkType =>
     async (dispatch, getState: () => AppRootStateType) => {
-
+        dispatch(setAppStatusAC({status: 'loading'}));
         dispatch(setIsFetchingAC({isFetching: true}));
 
         try {
@@ -33,7 +33,6 @@ export const removeTodolistTC = (todolistId: string): AppThunkType => async disp
     try {
         const response = await todolistsAPI.removeTodolist(todolistId);
         if (response.status === 200) {
-            dispatch(removeTodolistAC({todolistId}));
             dispatch(getTodolistsTC());
         }
     } catch (e) {
@@ -50,7 +49,7 @@ export const createTodolistTC = (title: string, date: Date, file?: FileType, id?
 
     try {
         const response = await todolistsAPI.createTodolist(title, date, file, id);
-        if (response.status === 200) {
+        if (response.status > 200 || response.status < 400) {
             dispatch(getTodolistsTC());
         }
     } catch (e) {

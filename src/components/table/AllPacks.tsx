@@ -1,16 +1,16 @@
 import React, {memo, useState} from 'react';
-import {CardTable} from "./Table/Table";
-import {ProfileWrapper, TitleProfileWrapper} from '../../../stylesComponents/ProfileAndPacksWrapper';
-import {Pagination} from "../../../common/Pagination";
-import {PaginationBlock} from '../../../stylesComponents/CardsWrapper';
-import {Button} from "../../../common/buttons/Button";
-import {PageSelect} from "../../../../utilsFunction/PageSelector";
+import {CardTable} from "./Table";
+import {ProfileWrapper, TitleProfileWrapper} from '../stylesComponents/generalWapper';
+import {Pagination} from "../common/Pagination";
+import {PaginationBlock} from '../stylesComponents/wrapperAll';
+import {Button} from "../common/buttons/Button";
+import {PageSelect} from "../../utilsFunction/PageSelector";
 import styled from "styled-components";
-import {useAppSelector, useTypedDispatch} from "../../../../reduxStore/store";
-import {AppInitialStateType, getPageAC, setPageCountAC, setSearchTodoAC} from "../../../../reduxStore/appReducer";
-import {SearchInput} from "../../../common/searchInput/SearchInput";
-import {AddTaskModal} from "../../../modalWindow/AddTaskModal";
-import {InitialStateTodolistDomainType} from "../../../../reduxStore/todolistsReducer";
+import {useAppSelector, useTypedDispatch} from "../../reduxStore/store";
+import {AppInitialStateType, getPageAC, setPageCountAC, setSearchTodoAC} from "../../reduxStore/appReducer";
+import {SearchInput} from "../common/searchInput/SearchInput";
+import {AddTaskModal} from "../modalWindow/addTaskModal";
+import {InitialStateTodolistDomainType} from "../../reduxStore/todolistsReducer";
 
 export const AllPacks = memo(() => {
 

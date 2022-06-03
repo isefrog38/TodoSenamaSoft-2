@@ -8,10 +8,10 @@ import {
     ModalWrapper,
     WrapperText,
     WrapperTextAndClose
-} from '../stylesComponents/ModalWrappers';
-import {TodolistType} from "../../types/TodolistType";
+} from '../stylesComponents/modalWrappers';
+import {TodolistType} from "../../types/todolistType";
 import {useAppSelector, useTypedDispatch} from "../../reduxStore/store";
-import {removeTodolistTC} from "../../thunk/Todolist-thunk";
+import {removeTodolistTC} from "../../thunk/todolistThunk";
 
 type DeletePackModalType = {
     id: string

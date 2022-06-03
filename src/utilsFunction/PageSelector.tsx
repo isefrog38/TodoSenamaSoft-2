@@ -1,7 +1,7 @@
 import React, {useState, KeyboardEvent, useEffect} from "react";
 import OutsideAlerter from "./hook/useClose";
 import styled from "styled-components";
-import {colors} from "../components/stylesComponents/Colors";
+import {colors} from "../components/stylesComponents/colors";
 
 type SelectPropsType = {
     value: any

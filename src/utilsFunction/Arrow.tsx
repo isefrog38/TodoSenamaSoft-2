@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import {colors} from "../components/stylesComponents/Colors";
+import {colors} from "../components/stylesComponents/colors";
 
 export const Arrow = ({onClick, rotate, width}: { onClick: () => void, rotate: string, width: number }) => {
     return (

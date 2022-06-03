@@ -1,7 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import s from "./SearchInput.module.css";
 import styled from "styled-components";
-import SearchImg from "../../../assets/Union.svg";
 
 type InputFormType = {
     valueSearch: string
@@ -40,7 +39,6 @@ export const InputWrapper = styled.input`
   width: ${({width}) => width ? width : '90%'};
   border-radius: 0.3vw;
   margin-right: 2vw;
-  background: url(${SearchImg}) no-repeat scroll 50px 50px;
   background-size: 1vw;
   padding-left: 2vw;
   font-size: 0.9vw;

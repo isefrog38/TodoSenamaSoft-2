@@ -1,17 +1,17 @@
-import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
+import React, {ChangeEvent, useRef, useState} from 'react';
 import {
     ButtonCancel, ButtonSave, ButtonsBlock, Close, Input,
     InputWrapper, Modal, ModalTextWrapper, ModalWindow, ModalWrapper, WrapperTextAndClose
-} from "../stylesComponents/ModalWrappers";
+} from "../stylesComponents/modalWrappers";
 import {useFormik} from "formik";
 import {useTypedDispatch} from "../../reduxStore/store";
-import {createTodolistTC} from "../../thunk/Todolist-thunk";
+import {createTodolistTC} from "../../thunk/todolistThunk";
 import {Button} from "../common/buttons/Button";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {fileToBase64} from "../../utilsFunction/Error-Utils";
-import { FormWrapper, TextAuthWrapper } from '../stylesComponents/AuthCardWrapper';
-import { colors } from '../stylesComponents/Colors';
+import { FormWrapper, TextAuthWrapper } from '../stylesComponents/taskWrapper';
+import { colors } from '../stylesComponents/colors';
 
 type AddPackModalType = {
     name?: string

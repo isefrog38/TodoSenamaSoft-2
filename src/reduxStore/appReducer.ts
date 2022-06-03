@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {FileResponseType} from "../types/TodolistType";
+import {FileResponseType} from "../types/todolistType";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed';
 export type FilterType = '0' | '1';

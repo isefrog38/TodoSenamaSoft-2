@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import {LoadingTable} from "../../../../common/loading/LoadingTable";
-import {TableElemets} from "./TableElements/TableElemets";
-import {PacksBlock} from '../../../../stylesComponents/CardsWrapper';
+import {LoadingTable} from "../common/loading/LoadingTable";
+import {TableElemets} from "./TableElemets";
+import {PacksBlock} from '../stylesComponents/wrapperAll';
 import styled from "styled-components";
-import {InitialStateTodolistDomainType} from "../../../../../reduxStore/todolistsReducer";
-import {useAppSelector, useTypedDispatch} from "../../../../../reduxStore/store";
-import {setFilterAC} from "../../../../../reduxStore/appReducer";
-import {getTodolistsTC} from "../../../../../thunk/Todolist-thunk";
+import {InitialStateTodolistDomainType} from "../../reduxStore/todolistsReducer";
+import {useAppSelector, useTypedDispatch} from "../../reduxStore/store";
+import {setFilterAC} from "../../reduxStore/appReducer";
+import {getTodolistsTC} from "../../thunk/todolistThunk";
 
 type CardTableType = {
     setShowAddModal: (el: boolean) => void

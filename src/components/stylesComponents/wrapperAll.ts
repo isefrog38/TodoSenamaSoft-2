@@ -16,35 +16,6 @@ export const SearchBlock = styled.div`
   justify-content: space-between;
 `;
 
-export const InputWrapper = styled.input<{width?: string, margin?: string}>`
-  height: 4vh;
-  width: ${({width}) => width ? width : '90%'};
-  border-radius: 0.3vw;
-  margin-right: ${({margin}) => margin ? margin : "2vw"};
-  background: url(${SerchImg}) no-repeat scroll 0.5vw 0.5vw;
-  background-size: 1vw;
-  padding-left: 2vw;
-  font-size: 0.9vw;
-  border: 1px solid #D9D9F1;
-  opacity: 0.7;
-
-  :nth-child(1) {
-    background-color: #ECECF9;
-  }
-  :nth-child(2) {
-    background-color: #ECECF9;
-  }
-
-  :hover {
-    border: 1px solid #635D80;
-  }
-
-  :focus {
-    outline: none;
-    border: 1px solid #635D80;
-  }
-`;
-
 export const TableItem = styled.div`
   width: 100%;
   height: 50px;
@@ -82,7 +53,7 @@ export const CardsPageWrapper = styled.div`
   border-radius: 8px;
 `;
 
-export const CardsWrapper = styled.div`
+export const WrapperAll = styled.div`
   padding: 24px;
 `;
 
