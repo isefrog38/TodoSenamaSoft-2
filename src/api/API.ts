@@ -1,6 +1,6 @@
 import axios, {AxiosResponse} from "axios";
 import {FileResponseType, FileType, TodolistType} from "../types/todolistType";
-import {FilterType} from "../types/reducersType";
+import {FilterType, LanguageType} from "../types/reducersType";
 
 const instance = axios.create({baseURL: 'http://localhost:7574/'});
 
@@ -20,5 +20,9 @@ export const todolistsAPI = {
 
     getFile(id: string) {
         return instance.get<{file: FileResponseType}>(`todolists/file/${id}`);
+    },
+
+    getLanguage(language: LanguageType) {
+        return instance.get(`todolists/language/${language}`);
     },
 }

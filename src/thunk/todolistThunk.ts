@@ -77,3 +77,18 @@ export const getFile = (id: string): AppThunkType => async dispatch => {
         }
     }
 }
+
+export const getLanguageTC = (): AppThunkType =>
+    async (dispatch, getState: () => AppRootStateType) => {
+
+        // try {
+        //     const { language } = getState().AppReducer
+        //     const response = await todolistsAPI.getLanguage(language);
+        //     if (response.status === 200) {
+        //     }
+        // } catch (e) {
+        //     if (e instanceof Error) {
+        //         handleServerNetworkError(e.message, dispatch);
+        //     }
+        // }
+    }

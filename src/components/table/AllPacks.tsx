@@ -11,6 +11,7 @@ import {getPageAC, setPageCountAC, setSearchTodoAC} from "../../reduxStore/appRe
 import {SearchInput} from "../common/searchInput/SearchInput";
 import {AddTaskModal} from "../modalWindow/addTaskModal";
 import {AppInitialStateType, InitialStateTodolistDomainType} from "../../types/reducersType";
+import {useTranslation} from "react-i18next";
 
 export const AllPacks = memo(() => {
 
@@ -18,6 +19,7 @@ export const AllPacks = memo(() => {
     const stateTodo = useAppSelector<InitialStateTodolistDomainType[]>(state => state.todolistsReducer);
     const [showAddModal, setShowAddModal] = useState<boolean>(false);
     const dispatch = useTypedDispatch();
+    const { t } = useTranslation();
 
     const addTaskHandler = () => setShowAddModal(true);
     const onPageChanged = (page: number) => dispatch(getPageAC({page}));
@@ -30,11 +32,13 @@ export const AllPacks = memo(() => {
     return (
         <ProfileWrapper>
             {showAddModal && <AddTaskModal setShow={setShowAddModal}/>}
-            <TitleProfileWrapper fontSz={1.5}>Todolist</TitleProfileWrapper>
+            <TitleProfileWrapper fontSz={1.5}>
+                {t('todolist_table')}
+            </TitleProfileWrapper>
 
             <SearchBlock>
                     <SearchInput valueSearch={stateApp.params.search} onChangeWithDebounce={onChangeDebounceRequest}/>
-                <Button button={"button"} name={'Add new task'} onClick={addTaskHandler}/>
+                <Button button={"button"} name={t('add_button')} onClick={addTaskHandler}/>
             </SearchBlock>
 
             <CardTable itemPack={stateTodo} isFetching={stateApp.isFetching}/>
@@ -48,11 +52,13 @@ export const AllPacks = memo(() => {
                                         onPageChanged={onPageChanged}
                                         currentPage={stateApp.params.page}/>
                         }
-                        <ShowCardsPage>Show
+                        <ShowCardsPage>{t('show')}
                             <PageSelect value={stateApp.params.pageSize}
                                         onChange={onChangePageSelector}
-                                        items={[5, 10, 15, 20]}/>
-                            Cards per Page</ShowCardsPage>
+                                        items={[5, 10, 15, 20]}
+                            />
+                            {t('task_per_page')}
+                        </ShowCardsPage>
                     </>
 
             </PaginationBlock>
@@ -67,7 +73,7 @@ const ShowCardsPage = styled.div`
   font-size: 0.8vw;
   align-items: center;
   justify-content: space-between;
-  width: 20%;`
+  width: 22%;`
 
 export const SearchBlock = styled.div`
   display: flex;

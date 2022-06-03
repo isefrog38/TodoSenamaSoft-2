@@ -7,22 +7,26 @@ import {useAppSelector, useTypedDispatch} from "../../reduxStore/store";
 import {setFilterAC} from "../../reduxStore/appReducer";
 import {getTodolistsTC} from "../../thunk/todolistThunk";
 import {InitialStateTodolistDomainType} from "../../types/reducersType";
+import {useTranslation} from "react-i18next";
 
 type CardTableType = {
     itemPack: InitialStateTodolistDomainType[]
     isFetching: boolean
 };
-const TableList = [
-    {id: 1, name: "Name"},
-    {id: 2, name: "Created by"},
-    {id: 5, name: "Actions"},
-];
 
 export const CardTable = ({itemPack, isFetching}: CardTableType) => {
 
     const {filter} = useAppSelector(state => state.AppReducer.params);
     const [up, setUp] = useState<boolean>(false);
     const dispatch = useTypedDispatch();
+    const { t } = useTranslation();
+
+    const TableList = [
+        {id: 1, name: t('name_table') },
+        {id: 2, name: t('date_table') },
+        {id: 5, name: t('actions_table')},
+    ];
+
 
     const onFilterColumnClick = () => {
         setUp(!up);
