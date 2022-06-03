@@ -2,7 +2,7 @@ export type TodolistType = {
     _id: string
     title: string
     addedDate: string
-    files?: 1 | 0
+    file?: 1 | 0
 }
 
 export type FileResponseType = {

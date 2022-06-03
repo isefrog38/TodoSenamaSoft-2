@@ -7,7 +7,7 @@ import {FileType} from "../types/todolistType";
 
 export const getTodolistsTC = (): AppThunkType =>
     async (dispatch, getState: () => AppRootStateType) => {
-        dispatch(setAppStatusAC({status: 'loading'}));
+
         dispatch(setIsFetchingAC({isFetching: true}));
 
         try {

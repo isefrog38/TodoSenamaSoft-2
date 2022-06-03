@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import SerchImg from "../../assets/Union.svg";
 
 export const Table = styled.div`
   height: 60.5vh;

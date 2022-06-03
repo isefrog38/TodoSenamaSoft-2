@@ -4,7 +4,8 @@ import {useDispatch,} from "react-redux";
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {TypedDispatch, useAppSelector} from "../../../reduxStore/store";
-import {AppInitialStateType, setAppErrorMessageAC} from "../../../reduxStore/appReducer";
+import {setAppErrorMessageAC} from "../../../reduxStore/appReducer";
+import {AppInitialStateType} from "../../../types/reducersType";
 
 
 export const Snackbar = () => {

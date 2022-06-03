@@ -7,10 +7,10 @@ import {Button} from "../common/buttons/Button";
 import {PageSelect} from "../../utilsFunction/PageSelector";
 import styled from "styled-components";
 import {useAppSelector, useTypedDispatch} from "../../reduxStore/store";
-import {AppInitialStateType, getPageAC, setPageCountAC, setSearchTodoAC} from "../../reduxStore/appReducer";
+import {getPageAC, setPageCountAC, setSearchTodoAC} from "../../reduxStore/appReducer";
 import {SearchInput} from "../common/searchInput/SearchInput";
 import {AddTaskModal} from "../modalWindow/addTaskModal";
-import {InitialStateTodolistDomainType} from "../../reduxStore/todolistsReducer";
+import {AppInitialStateType, InitialStateTodolistDomainType} from "../../types/reducersType";
 
 export const AllPacks = memo(() => {
 
@@ -37,23 +37,24 @@ export const AllPacks = memo(() => {
                 <Button button={"button"} name={'Add new task'} onClick={addTaskHandler}/>
             </SearchBlock>
 
-            <CardTable itemPack={stateTodo} isFetching={stateApp.isFetching} setShowAddModal={setShowAddModal}/>
+            <CardTable itemPack={stateTodo} isFetching={stateApp.isFetching}/>
 
             <PaginationBlock>
-                {stateApp.totalCount && stateApp.totalCount > 10 &&
                     <>
-                        <Pagination portionSize={10}
-                                  totalItemsCount={stateApp.totalCount}
-                                  pageSize={stateApp.params.pageSize}
-                                  onPageChanged={onPageChanged}
-                                  currentPage={stateApp.params.page}/>
+                        {stateApp.totalCount && stateApp.totalCount > stateApp.params.pageSize &&
+                            <Pagination portionSize={10}
+                                        totalItemsCount={stateApp.totalCount}
+                                        pageSize={stateApp.params.pageSize}
+                                        onPageChanged={onPageChanged}
+                                        currentPage={stateApp.params.page}/>
+                        }
                         <ShowCardsPage>Show
                             <PageSelect value={stateApp.params.pageSize}
                                         onChange={onChangePageSelector}
                                         items={[5, 10, 15, 20]}/>
                             Cards per Page</ShowCardsPage>
                     </>
-                }
+
             </PaginationBlock>
 
 

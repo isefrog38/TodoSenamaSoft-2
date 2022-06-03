@@ -1,6 +1,6 @@
 import axios, {AxiosResponse} from "axios";
 import {FileResponseType, FileType, TodolistType} from "../types/todolistType";
-import {FilterType} from "../reduxStore/appReducer";
+import {FilterType} from "../types/reducersType";
 
 const instance = axios.create({baseURL: 'http://localhost:7574/'});
 
@@ -10,7 +10,8 @@ export const todolistsAPI = {
     },
 
     createTodolist(title: string, date: Date,  file?: FileType, id?: string) {
-        return instance.post<AxiosResponse<{id: string}>>(`todolists/${id}`, {title, date, file});
+        if (id) return instance.post<AxiosResponse<{id: string}>>(`todolists/${id}`, {title, date, file});
+        else return instance.post<AxiosResponse<{id: string}>>(`todolists`, {title, date, file});
     },
 
     removeTodolist(id: string) {

@@ -1,18 +1,17 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
 import {colors} from "../stylesComponents/colors";
-import {InitialStateTodolistDomainType} from "../../reduxStore/todolistsReducer";
 import {DeleteTaskModal} from "../modalWindow/deleteModal";
 import {useTypedDispatch} from "../../reduxStore/store";
 import {getFile} from "../../thunk/todolistThunk";
 import {AddTaskModal} from "../modalWindow/addTaskModal";
+import {InitialStateTodolistDomainType} from "../../types/reducersType";
 
 type ActiveButtonsTableType = {
-    setShowAddModal: (el: boolean) => void
     el: InitialStateTodolistDomainType
 }
 
-export const ActiveButtonsTable = ({el, setShowAddModal}: ActiveButtonsTableType) => {
+export const ActiveButtonsTable = ({el}: ActiveButtonsTableType) => {
 
     const [deleteModal, setDeleteModal] = useState<boolean>(false);
     const [editModal, setEditModal] = useState<boolean>(false);
@@ -26,7 +25,7 @@ export const ActiveButtonsTable = ({el, setShowAddModal}: ActiveButtonsTableType
             {editModal && <AddTaskModal name={"Edit Task"} id={el._id} setShow={setEditModal}/>}
             {deleteModal && <DeleteTaskModal id={el._id} setShow={setDeleteModal}/>}
             <Button type={"button"} color={colors.Blue} bgColor={"#c6a5f1"} onClick={downloadFile}
-                    disabled={!(el.files === 1)}>
+                    disabled={!(el.file === 1)}>
                 Download
             </Button>
             <Button type={"button"} color={colors.Blue} bgColor={colors.AzureishWhite}
@@ -55,6 +54,6 @@ const Button = styled.button<{ color: string, bgColor: string }>`
 
   &:disabled {
     opacity: .3;
-    cursor: no - drop;
+    cursor: no-drop;
   }
 `

@@ -3,9 +3,10 @@ import {Loading} from "./components/common/loading/Loading";
 import {AppWrapper} from "./components/stylesComponents/taskWrapper";
 import {Snackbar} from "./components/common/snackBar/SnackBar";
 import {useAppSelector, useTypedDispatch} from "./reduxStore/store";
-import {AppInitialStateType} from "./reduxStore/appReducer";
 import {PacksList} from "./components/table/PacksList";
 import {getTodolistsTC} from "./thunk/todolistThunk";
+import {AppInitialStateType} from "./types/reducersType";
+import {setAppStatusAC} from "./reduxStore/appReducer";
 
 export const App = () => {
 
@@ -13,6 +14,7 @@ export const App = () => {
     const dispatch = useTypedDispatch();
 
     useEffect(() => {
+        dispatch(setAppStatusAC({status: 'loading'}));
         dispatch(getTodolistsTC());
     }, [stateApp.params]);
 

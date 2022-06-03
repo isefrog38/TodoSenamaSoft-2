@@ -1,22 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {FileResponseType} from "../types/todolistType";
-
-export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed';
-export type FilterType = '0' | '1';
-
-export type AppInitialStateType = {
-    params : {
-        search: string
-        pageSize: number
-        page: number
-        filter: FilterType
-    }
-    file: FileResponseType | null
-    totalCount: number | null
-    status: RequestStatusType
-    error: null | string
-    isFetching: boolean
-};
+import {AppInitialStateType, FilterType, LanguageType, RequestStatusType} from "../types/reducersType";
 
 const initialState: AppInitialStateType = {
     params: {
@@ -25,6 +8,7 @@ const initialState: AppInitialStateType = {
         search: '',
         filter: '0',
     },
+    language: "Eng",
     file: null,
     status: 'succeeded',
     error: null,
@@ -60,12 +44,12 @@ const AppSlice = createSlice({
         setFilterAC(state, action: PayloadAction<{ filter: FilterType }>) {
             state.params.filter = action.payload.filter;
         },
-        setFileAC(state, action: PayloadAction<{ file: FileResponseType }>) {
-            state.file = action.payload.file;
+        setLanguageAC(state, action: PayloadAction<{ language: LanguageType }>) {
+            state.language = action.payload.language;
         },
     },
 });
 
 export const AppReducer = AppSlice.reducer;
 
-export const {setFileAC, setFilterAC, setTotalPageCountTaskAC, getPageAC, setIsFetchingAC, setSearchTodoAC, setPageCountAC, setAppStatusAC, setAppErrorMessageAC} = AppSlice.actions;
+export const {setLanguageAC, setFilterAC, setTotalPageCountTaskAC, getPageAC, setIsFetchingAC, setSearchTodoAC, setPageCountAC, setAppStatusAC, setAppErrorMessageAC} = AppSlice.actions;
