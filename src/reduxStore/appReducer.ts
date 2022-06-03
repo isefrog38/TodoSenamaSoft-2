@@ -52,4 +52,6 @@ const AppSlice = createSlice({
 
 export const AppReducer = AppSlice.reducer;
 
-export const {setLanguageAC, setFilterAC, setTotalPageCountTaskAC, getPageAC, setIsFetchingAC, setSearchTodoAC, setPageCountAC, setAppStatusAC, setAppErrorMessageAC} = AppSlice.actions;
+export const {setLanguageAC, setFilterAC, setTotalPageCountTaskAC, getPageAC,
+    setIsFetchingAC, setSearchTodoAC, setPageCountAC, setAppStatusAC, setAppErrorMessageAC
+} = AppSlice.actions;

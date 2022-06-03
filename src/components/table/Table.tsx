@@ -43,7 +43,7 @@ export const CardTable = ({itemPack, isFetching}: CardTableType) => {
                     {TableList.map(el => (
                         <OneColumn key={el.id}>
                             {el.name}
-                            {el.name === 'Created by' && <Span up={up} onClick={onFilterColumnClick}/>}
+                            {el.id === 2 && <Span up={up} onClick={onFilterColumnClick}/>}
                         </OneColumn>
                     ))
                     }

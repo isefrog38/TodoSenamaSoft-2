@@ -131,7 +131,7 @@ const Main = styled.span<{pd?: number, active: boolean }>`
 const Option = styled.div<{ active: boolean }>`
   display: flex;
   width: 100%;
-  padding: 0 15px;
+  padding: 0 22px;
   align-items: center;
   justify-content: center;
   color: ${({active}) => active && 'black'};

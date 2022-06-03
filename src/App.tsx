@@ -6,7 +6,6 @@ import {useAppSelector, useTypedDispatch} from "./reduxStore/store";
 import {PacksList} from "./components/table/PacksList";
 import {getTodolistsTC} from "./thunk/todolistThunk";
 import {AppInitialStateType} from "./types/reducersType";
-import {setAppStatusAC} from "./reduxStore/appReducer";
 import i18n from "i18next";
 import {initReactI18next} from "react-i18next";
 
@@ -16,7 +15,6 @@ export const App = () => {
     const dispatch = useTypedDispatch();
 
     useEffect(() => {
-        dispatch(setAppStatusAC({status: 'loading'}));
         dispatch(getTodolistsTC());
     }, [stateApp.params]);
 
