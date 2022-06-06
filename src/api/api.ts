@@ -53,10 +53,7 @@ Password recovery link:
             });
     },
     newPassword(password: string, resetPasswordToken: string) {
-        return instance.post(`auth/set-new-password`, {
-            password,
-            resetPasswordToken
-        })
+        return instance.post(`auth/setNewPassword`, {password, resetPasswordToken})
     },
 }
 

@@ -4,7 +4,7 @@ import {AppThunkType} from "../reduxStore/store";
 import {setAppStatusAC, setAppSuccessMessageAC} from "../reduxStore/appReducer";
 import {deleteUserDataAC, setAuthUserDataAC} from "../reduxStore/authReducer";
 import {handleServerNetworkError} from "../utilsFunction/Error-Utils";
-import {authAPI} from "../api/API";
+import {authAPI} from "../api/api";
 
 
 export const AuthMeTC = (): AppThunkType => async dispatch => {

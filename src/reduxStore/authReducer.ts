@@ -4,7 +4,6 @@ import {initialStateAuthorizationType, ResponseDataLoginOrAuthMe } from "../type
 let initialState: initialStateAuthorizationType = {
     _id: null,
     email: null,
-    name: null,
     rememberMe: null,
     isAuth: true
 };

@@ -2,7 +2,7 @@ import {setTodolistsAC} from "../reduxStore/todolistsReducer";
 import {setAppStatusAC, setIsFetchingAC, setLanguageFileAC, setTotalPageCountTaskAC} from "../reduxStore/appReducer";
 import {AppRootStateType, AppThunkType} from "../reduxStore/store";
 import {handleServerNetworkError} from "../utilsFunction/Error-Utils";
-import {todolistsAPI} from "../api/API";
+import {todolistsAPI} from "../api/api";
 import {FileType} from "../types/todolistType";
 
 export const getTodolistsTC = (): AppThunkType =>

@@ -4,7 +4,7 @@ import {AppThunkType} from "../reduxStore/store";
 import {setAppStatusAC} from "../reduxStore/appReducer";
 import {handleServerNetworkError} from "../utilsFunction/Error-Utils";
 import {PATH} from "../utilsFunction/enumPath";
-import {authAPI} from "../api/API";
+import {authAPI} from "../api/api";
 import {setForgotEmailAC} from "../reduxStore/authReducer";
 
 
