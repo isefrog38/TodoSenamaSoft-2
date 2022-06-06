@@ -4,16 +4,19 @@ import thunkMiddleware, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {AppReducer} from "./appReducer";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {configureStore} from "@reduxjs/toolkit";
+import {AuthorizationReducer} from "./authReducer";
 
 const rootReducer = combineReducers({
     todolistsReducer,
     AppReducer,
+    AuthorizationReducer,
 });
 
 export const store = configureStore({
     reducer: {
         todolistsReducer,
         AppReducer,
+        AuthorizationReducer,
     },
     middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunkMiddleware),
 })

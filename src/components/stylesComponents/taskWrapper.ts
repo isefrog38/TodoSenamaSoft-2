@@ -1,10 +1,12 @@
 import styled from "styled-components";
+import {colors} from "./colors";
 
 export const CardWrapper = styled.div<{ width?: number, height?: number }>`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 25px 33px;
+  margin: 5% auto;
   justify-content: space-around;
   width: ${({width}) => width}px;
   height: ${({height}) => height}px;
@@ -23,8 +25,8 @@ export const TextAuthWrapper = styled.p<{ color?: string, fontSz: number, opacit
   font-size: ${({fontSz}) => fontSz}px;
   font-style: normal;
   color: ${({color}) => color};
-  opacity: ${({opacity}) => opacity};
-  text-align: ${({textAlign}) => textAlign}`;
+  text-align: ${({textAlign}) => textAlign};
+`;
 
 export const FormWrapper = styled.form<{ height?: number }>`
   display: flex;
@@ -55,7 +57,8 @@ export const AppWrapper = styled.div`
   width: 100%;
   height: 100%`;
 
-export const ButtonWrapper = styled.div`
-  width: 100%;
+export const ButtonWrapper = styled.div<{width?: number}>`
+  width: ${({width}) => width ? width : 100}%;
   display: flex;
-  justify-content: space-between;`
+  justify-content: space-between;
+`;

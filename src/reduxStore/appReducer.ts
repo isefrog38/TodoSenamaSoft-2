@@ -22,6 +22,7 @@ const initialState: AppInitialStateType = {
     language: 'eng' as LanguageType,
     status: 'loading',
     error: null,
+    success: null,
     isFetching: true,
     totalCount: null,
 }
@@ -60,12 +61,15 @@ const AppSlice = createSlice({
         setLanguageFileAC(state, action: PayloadAction<{ translation: LanguageResponseType }>) {
             state.translation = action.payload.translation;
         },
+        setAppSuccessMessageAC(state, action: PayloadAction<{ success: null | string }>) {
+            state.success = action.payload.success;
+        },
     },
 });
 
 export const AppReducer = AppSlice.reducer;
 
 export const {
-    setLanguageAC, setFilterAC, setTotalPageCountTaskAC, getPageAC, setLanguageFileAC,
-    setIsFetchingAC, setSearchTodoAC, setPageCountAC, setAppStatusAC, setAppErrorMessageAC
+    setLanguageAC, setFilterAC, setTotalPageCountTaskAC, getPageAC, setLanguageFileAC, setAppSuccessMessageAC,
+    setIsFetchingAC, setSearchTodoAC, setPageCountAC, setAppStatusAC, setAppErrorMessageAC,
 } = AppSlice.actions;

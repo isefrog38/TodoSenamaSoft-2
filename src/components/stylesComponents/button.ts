@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
-export const Button = styled.button<{ width?: number, height?: number, bgColor?: string, color?: string }>`
+export const Button = styled.button<{ width?: number, height?: number, bgColor?: string, color?: string}>`
   width: ${({width}) => width}px;
   height: ${({height}) => height}px;
   background-color: ${({bgColor}) => bgColor};
   color: ${({color}) => color};
   border-radius: 30px;
   letter-spacing: 0.7px;
+  font-size: 1rem;
   border: none;
   cursor: pointer;
   transition: all 1s;

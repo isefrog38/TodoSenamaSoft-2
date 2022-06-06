@@ -13,7 +13,7 @@ import {AddTaskModal} from "../modalWindow/addTaskModal";
 import {AppInitialStateType, InitialStateTodolistDomainType} from "../../types/reducersType";
 import {useTranslation} from "react-i18next";
 
-export const AllPacks = memo(() => {
+export const AllTasks = memo(() => {
 
     const stateApp = useAppSelector<AppInitialStateType>(state => state.AppReducer);
     const stateTodo = useAppSelector<InitialStateTodolistDomainType[]>(state => state.todolistsReducer);

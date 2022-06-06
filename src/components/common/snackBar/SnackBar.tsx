@@ -4,7 +4,7 @@ import {useDispatch,} from "react-redux";
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {TypedDispatch, useAppSelector} from "../../../reduxStore/store";
-import {setAppErrorMessageAC} from "../../../reduxStore/appReducer";
+import {setAppErrorMessageAC, setAppSuccessMessageAC} from "../../../reduxStore/appReducer";
 import {AppInitialStateType} from "../../../types/reducersType";
 
 
@@ -17,6 +17,11 @@ export const Snackbar = () => {
         toast.error(appState.error);
         dispatch(setAppErrorMessageAC({error: null}));
     },[appState.error]);
+
+    useEffect(() => {
+        toast.success(appState.success);
+        dispatch(setAppSuccessMessageAC({success: null}));
+    },[appState.success]);
 
     return (
         <>

@@ -13,6 +13,7 @@ export type AppInitialStateType = {
         page: number
         filter: FilterType
     }
+    success: null | string,
     language: LanguageType
     translation:LanguageResponseType
     totalCount: number | null

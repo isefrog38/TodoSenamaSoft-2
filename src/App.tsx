@@ -3,20 +3,31 @@ import {Loading} from "./components/common/loading/Loading";
 import {AppWrapper} from "./components/stylesComponents/taskWrapper";
 import {Snackbar} from "./components/common/snackBar/SnackBar";
 import {useAppSelector, useTypedDispatch} from "./reduxStore/store";
-import {PacksList} from "./components/table/PacksList";
+import {TodolistList} from "./components/table/PacksList";
 import {getTodolistsTC} from "./thunk/todolistThunk";
 import {AppInitialStateType} from "./types/reducersType";
 import i18n from "i18next";
 import {initReactI18next} from "react-i18next";
+import {initialStateAuthorizationType} from "./types/authType";
+import { PATH } from './utilsFunction/enumPath';
+import { Header } from './components/common/header/Header';
+import {Navigate, Route, Routes} from "react-router-dom";
+import {Login} from "./components/authComponents/login/login";
+import {Register} from "./components/authComponents/registration/register";
+import {ForgotPassword} from "./components/authComponents/forgotPassword/forgotPassword";
+import {NewPassword} from "./components/authComponents/newPassword/newPassword";
+import {CheckEmail} from "./components/authComponents/checkEmail/checkEmail";
+import {AuthMeTC} from "./thunk/authThunk";
 
 export const App = () => {
 
         const stateApp = useAppSelector<AppInitialStateType>(state => state.AppReducer);
+        const stateAuth = useAppSelector<initialStateAuthorizationType>(state => state.AuthorizationReducer);
         const dispatch = useTypedDispatch();
 
         useEffect(() => {
-            dispatch(getTodolistsTC());
-        }, [stateApp.params]);
+            dispatch(AuthMeTC());
+        }, []);
 
         i18n
             .use(initReactI18next)
@@ -33,8 +44,17 @@ export const App = () => {
                 {stateApp.status === 'loading'
                     ? <Loading/>
                     : <>
+                        {stateAuth.isAuth && <Header/>}
                         <Snackbar/>
-                        <PacksList/>
+                        <Routes>
+                            <Route path={'/'} element={<Navigate to={PATH.todolist}/>}/>
+                            <Route path={PATH.login} element={<Login/>}/>
+                            <Route path={PATH.registration} element={<Register/>}/>
+                            <Route path={PATH.todolist} element={<TodolistList/>}/>
+                            <Route path={PATH.forgotPassword} element={<ForgotPassword/>}/>
+                            <Route path={PATH.newPassword + "/:token"} element={<NewPassword/>}/>
+                            <Route path={PATH.checkEmail} element={<CheckEmail/>}/>
+                        </Routes>
                     </>
                 }
             </AppWrapper>
