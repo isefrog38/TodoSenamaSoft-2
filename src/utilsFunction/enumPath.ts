@@ -2,5 +2,6 @@ export const PATH = {
     login: '/login',
     registration: '/registration',
     checkEmail: '/checkEmail',
-    todolist: '/todolist'
+    todolist: '/todolist',
+    activated: '/activatedMail',
 };
