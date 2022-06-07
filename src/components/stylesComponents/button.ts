@@ -7,7 +7,7 @@ export const Button = styled.button<{ width?: number, height?: number, bgColor?:
   color: ${({color}) => color};
   border-radius: 30px;
   letter-spacing: 0.7px;
-  font-size: 1rem;
+  font-size: 1.2rem;
   border: none;
   cursor: pointer;
   transition: all 1s;

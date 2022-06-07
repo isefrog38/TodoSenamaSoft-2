@@ -1,12 +1,12 @@
 import React from 'react';
 import {useFormik} from "formik";
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {useTypedDispatch} from "../../../reduxStore/store";
 import {ButtonWrapper, CardWrapper, ErrorWrapper, FormWrapper, TextAuthWrapper, TitleAuthWrapper } from '../../stylesComponents/taskWrapper';
 import {Button, Input } from '../../stylesComponents/button';
 import { colors } from '../../stylesComponents/colors';
 import { PATH } from '../../../utilsFunction/enumPath';
-import {RegisterTC} from "../../../thunk/commonThunk";
+import {RegisterTC} from "../../../thunk/authThunk";
 
 
 type FormikErrorType = {
@@ -41,7 +41,7 @@ export const Register = () => {
             return errors;
         },
         onSubmit: (values) => {
-            dispatch(RegisterTC(values.email, values.password));
+            dispatch(RegisterTC(values.email, values.password, useNavigate));
             registrationForm.resetForm();
         },
     });
@@ -84,15 +84,14 @@ export const Register = () => {
                 ) : null}
 
                 <ButtonWrapper>
-                    {/*button redirect in login*/}
                     <NavLink to={PATH.login}>
-                        <Button height={36} width={124} bgColor={colors.Lavender} color={colors.DarkBlue}>
+                        <Button height={36} width={130} bgColor={colors.Lavender} color={colors.DarkBlue}>
                             Go Login
                         </Button>
                     </NavLink>
                     <Button type="submit"
                             disabled={!(registrationForm.isValid && registrationForm.dirty)}
-                            height={36} width={187} bgColor={colors.Blue} color={colors.Lavender}>Register</Button>
+                            height={36} width={200} bgColor={colors.Blue} color={colors.Lavender}>Register</Button>
                 </ButtonWrapper>
             </FormWrapper>
         </CardWrapper>
