@@ -1,6 +1,7 @@
 import axios, {AxiosResponse} from "axios";
 import {FileResponseType, FileType, TodolistType} from "../types/todolistType";
 import {FilterType, LanguageType} from "../types/reducersType";
+import {ResponseRegisterType} from "../types/authType";
 
 const instance = axios.create({baseURL: 'http://localhost:7574/'});
 
@@ -36,24 +37,10 @@ export const authAPI = {
         return instance.post(`auth/login`, {email, password, rememberMe})
     },
     logOut() {
-        return instance.delete(`auth/me`)
+        return instance.post(`auth/logOut`)
     },
     register(email: string, password: string) {
-        return instance.post(`auth/register`, {email, password})
-    },
-    forgotPassword(email: string) {
-        return instance.post(`auth/forgot`,
-            {
-                email,
-                from: 'adminSenamaSoftTodo@yandex.by',
-                message: `
-<div style="background-color: #2D2E46; padding: 15px; color: lavender">
-Password recovery link: 
-<a style="text-decoration:none; color: deepskyblue;" href='https://localhost:3000/setNewPass/$token$'>link</a></div>`
-            });
-    },
-    newPassword(password: string, resetPasswordToken: string) {
-        return instance.post(`auth/setNewPassword`, {password, resetPasswordToken})
+        return instance.post<{email: string, password: string}, ResponseRegisterType>(`auth/register`, {email, password})
     },
 }
 

@@ -45,19 +45,11 @@ export const LogOutTC = (): AppThunkType => async dispatch => {
 
     try {
         const response = await authAPI.logOut()
-        if (response.data.info) {
+        if (true) {
             let resetUser = {
-                _id: null,
+                id: null,
                 email: null,
-                name: null,
-                avatar: null,
-                publicCardPacksCount: null,
-                created: null,
-                updated: null,
-                isAdmin: null,
-                verified: null,
-                rememberMe: null,
-                error: null,
+                isActivated: null,
             };
             dispatch(deleteUserDataAC(resetUser));
             dispatch(setAppStatusAC({status: 'succeeded'}));

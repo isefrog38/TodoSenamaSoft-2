@@ -85,14 +85,6 @@ export const Login = IsAuthRedirect(() => {
                     <TextAuthWrapper fontSz={13} opacity={1} color={colors.DarkBlue}> Remember me</TextAuthWrapper>
                 </RememberMeWrapper>
 
-
-                {/*redirect in Forgot Password */}
-                <TextAuthWrapper textAlign={'end'} color={colors.DarkBlue} fontSz={14}>
-                        <NavLink to={PATH.forgotPassword}>
-                            Forgot Password
-                        </NavLink>
-                </TextAuthWrapper>
-
                 <Button type="submit"
                         disabled={!(loginForm.isValid && loginForm.dirty)}
                         height={36} width={266} bgColor={colors.DarkBlue}

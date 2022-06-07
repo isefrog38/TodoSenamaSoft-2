@@ -4,7 +4,6 @@ import {AppWrapper} from "./components/stylesComponents/taskWrapper";
 import {Snackbar} from "./components/common/snackBar/SnackBar";
 import {useAppSelector, useTypedDispatch} from "./reduxStore/store";
 import {TodolistList} from "./components/table/PacksList";
-import {getTodolistsTC} from "./thunk/todolistThunk";
 import {AppInitialStateType} from "./types/reducersType";
 import i18n from "i18next";
 import {initReactI18next} from "react-i18next";
@@ -14,8 +13,6 @@ import { Header } from './components/common/header/Header';
 import {Navigate, Route, Routes} from "react-router-dom";
 import {Login} from "./components/authComponents/login/login";
 import {Register} from "./components/authComponents/registration/register";
-import {ForgotPassword} from "./components/authComponents/forgotPassword/forgotPassword";
-import {NewPassword} from "./components/authComponents/newPassword/newPassword";
 import {CheckEmail} from "./components/authComponents/checkEmail/checkEmail";
 import {AuthMeTC} from "./thunk/authThunk";
 
@@ -51,8 +48,6 @@ export const App = () => {
                             <Route path={PATH.login} element={<Login/>}/>
                             <Route path={PATH.registration} element={<Register/>}/>
                             <Route path={PATH.todolist} element={<TodolistList/>}/>
-                            <Route path={PATH.forgotPassword} element={<ForgotPassword/>}/>
-                            <Route path={PATH.newPassword + "/:token"} element={<NewPassword/>}/>
                             <Route path={PATH.checkEmail} element={<CheckEmail/>}/>
                         </Routes>
                     </>

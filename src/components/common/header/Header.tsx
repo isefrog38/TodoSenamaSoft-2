@@ -7,6 +7,7 @@ import {AppInitialStateType, LanguageType} from "../../../types/reducersType";
 import {getLanguageTC} from "../../../thunk/todolistThunk";
 import {useTranslation} from "react-i18next";
 import styled from "styled-components";
+import {LogOutTC} from "../../../thunk/authThunk";
 
 export const Header = () => {
 
@@ -16,7 +17,7 @@ export const Header = () => {
 
 
     const onClickHandler = () => {
-        // dispatch(LogOutTC());
+        dispatch(LogOutTC());
     }
     const onLanguageChange = (language: LanguageType) => {
         dispatch(setLanguageAC({language}));
