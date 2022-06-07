@@ -24,12 +24,12 @@ export const AuthMeTC = (): AppThunkType => async dispatch => {
     }
 };
 
-export const LoginTC = (values: any) => async (dispatch: Dispatch) => {
+export const LoginTC = (email: string, password: string, rememberMe: boolean) => async (dispatch: Dispatch) => {
 
     dispatch(setAppStatusAC({status: 'loading'}));
 
     try {
-        const response = await authAPI.authLogin(values.email, values.password, values.rememberMe);
+        const response = await authAPI.authLogin(email, password, rememberMe);
         if (response.user) {
             dispatch(setAuthUserDataAC(response.user));
             dispatch(setAppStatusAC({status: 'succeeded'}));
@@ -73,9 +73,10 @@ export const RegisterTC = (email: string, password: string, navigate: NavigateFu
 
     try {
         const response = await authAPI.register(email, password);
-        if (response) {
-            navigate(PATH.login);
+        if (response.data) {
             dispatch(setAppStatusAC({status: 'succeeded'}));
+            dispatch(setAppSuccessMessageAC({success: " Congratulations ! You are created account"}));
+            navigate(PATH.login);
         }
     } catch (error) {
         if (axios.isAxiosError(error) && error.response) {

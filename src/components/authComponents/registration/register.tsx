@@ -17,6 +17,7 @@ type FormikErrorType = {
 
 export const Register = () => {
 
+    const navigate = useNavigate();
     const dispatch = useTypedDispatch();
 
     const registrationForm = useFormik({
@@ -41,7 +42,7 @@ export const Register = () => {
             return errors;
         },
         onSubmit: (values) => {
-            dispatch(RegisterTC(values.email, values.password, useNavigate));
+            dispatch(RegisterTC(values.email, values.password, navigate));
             registrationForm.resetForm();
         },
     });

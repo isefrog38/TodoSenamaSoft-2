@@ -29,7 +29,7 @@ export const Login = IsAuthRedirect(() => {
     const dispatch = useTypedDispatch();
 
     const loginForm = useFormik({
-        initialValues: {email: "", password: "", rememberMe: false, captcha: true},
+        initialValues: {email: "", password: "", rememberMe: false},
         validate: (values: FormikErrorType) => {
             const errors: FormikErrorType = {};
             if (!values.email) {
@@ -39,13 +39,13 @@ export const Login = IsAuthRedirect(() => {
             }
             if (!values.password) {
                 errors.password = "Password is required";
-            } else if (values.password.length < 4) {
+            } else if (values.password.length < 7) {
                 errors.password = "Invalid password";
             }
             return errors;
         },
         onSubmit: (values) => {
-            dispatch(LoginTC(values));
+            dispatch(LoginTC(values.email, values.password, values.rememberMe));
             loginForm.resetForm();
         },
     });
@@ -91,7 +91,6 @@ export const Login = IsAuthRedirect(() => {
                         color={colors.Lavender}>Login</Button>
             </FormWrapper>
 
-            {/*redirect in registration*/}
             <TextAuthWrapper color={'#2f2e2e'} textAlign={'center'} fontSz={14} opacity={0.5}>
                 <ButtonHovered>
                     <NavLink to={PATH.registration}>Don’t have an account?</NavLink>

@@ -40,7 +40,7 @@ export const authAPI = {
         return instance.post(`auth/logOut`)
     },
     register(email: string, password: string) {
-        return instance.post<{email: string, password: string}, ResponseRegisterType>(`auth/register`, {email, password})
+        return instance.post<{email: string, password: string}, AxiosResponse<ResponseRegisterType>>(`auth/register`, {email, password})
     },
 }
 
