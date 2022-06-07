@@ -30,8 +30,8 @@ export const LoginTC = (email: string, password: string, rememberMe: boolean) =>
 
     try {
         const response = await authAPI.authLogin(email, password, rememberMe);
-        if (response.user) {
-            dispatch(setAuthUserDataAC(response.user));
+        if (response.data.user) {
+            dispatch(setAuthUserDataAC(response.data.user));
             dispatch(setAppStatusAC({status: 'succeeded'}));
         }
     } catch (error) {

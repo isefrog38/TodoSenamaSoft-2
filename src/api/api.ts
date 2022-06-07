@@ -34,7 +34,7 @@ export const authAPI = {
         return instance.post(`auth/me`)
     },
     authLogin(email: string, password: string, rememberMe: boolean) {
-        return instance.post<{email: string, password: string, rememberMe: boolean}, ResponseRegisterType>(`auth/login`, {email, password, rememberMe})
+        return instance.post<{email: string, password: string, rememberMe: boolean}, AxiosResponse<ResponseRegisterType>>(`auth/login`, {email, password, rememberMe})
     },
     logOut() {
         return instance.post(`auth/logOut`)
