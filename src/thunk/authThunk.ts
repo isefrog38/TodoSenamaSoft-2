@@ -1,8 +1,8 @@
 import {Dispatch} from "redux";
 import axios from "axios";
-import {AppThunkType} from "../reduxStore/store";
+import {AppRootStateType, AppThunkType} from "../reduxStore/store";
 import {setAppStatusAC, setAppSuccessMessageAC} from "../reduxStore/appReducer";
-import {deleteUserDataAC, setAuthUserDataAC} from "../reduxStore/authReducer";
+import {deleteUserDataAC, setAuthUserDataAC, setCheckEmailAC} from "../reduxStore/authReducer";
 import {handleServerNetworkError} from "../utilsFunction/Error-Utils";
 import {authAPI} from "../api/api";
 import {PATH} from "../utilsFunction/enumPath";
@@ -29,9 +29,9 @@ export const LoginTC = (email: string, password: string, rememberMe: boolean) =>
     dispatch(setAppStatusAC({status: 'loading'}));
 
     try {
-        const response = await authAPI.authLogin(email, password, rememberMe);
-        if (response.data.user) {
-            dispatch(setAuthUserDataAC(response.data.user));
+        const {data} = await authAPI.authLogin(email, password, rememberMe);
+        if (data.user) {
+            dispatch(setAuthUserDataAC({data}));
             dispatch(setAppStatusAC({status: 'succeeded'}));
         }
     } catch (error) {
@@ -41,7 +41,8 @@ export const LoginTC = (email: string, password: string, rememberMe: boolean) =>
     }
 };
 
-export const LogOutTC = (): AppThunkType => async dispatch => {
+export const LogOutTC = (): AppThunkType =>
+    async (dispatch , getState: () => AppRootStateType)=> {
 
     dispatch(setAppStatusAC({status: 'loading'}));
 
@@ -53,7 +54,7 @@ export const LogOutTC = (): AppThunkType => async dispatch => {
                 email: null,
                 isActivated: null,
             };
-            dispatch(deleteUserDataAC(resetUser));
+            dispatch(deleteUserDataAC({user: resetUser}));
             dispatch(setAppStatusAC({status: 'succeeded'}));
             dispatch(setAppSuccessMessageAC({success: "LogOut succeeded"}));
         }
@@ -74,9 +75,14 @@ export const RegisterTC = (email: string, password: string, navigate: NavigateFu
     try {
         const response = await authAPI.register(email, password);
         if (response.data) {
+            dispatch(setCheckEmailAC({email}));
             dispatch(setAppStatusAC({status: 'succeeded'}));
             dispatch(setAppSuccessMessageAC({success: " Congratulations ! You are created account"}));
-            navigate(PATH.login);
+
+            navigate(PATH.checkEmail);
+
+            let idTimeout = +setTimeout(() => { navigate(PATH.login) },5000);
+            clearTimeout(idTimeout);
         }
     } catch (error) {
         if (axios.isAxiosError(error) && error.response) {

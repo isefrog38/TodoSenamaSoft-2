@@ -53,7 +53,7 @@ export const Login = IsAuthRedirect(() => {
     return (
         <CardWrapper width={413} height={600}>
             <TitleAuthWrapper fontSz={26}>Sign In</TitleAuthWrapper>
-            <TitleAuthWrapper fontSz={15}>It-incubator</TitleAuthWrapper>
+            <TitleAuthWrapper fontSz={15}>SenamaSoft</TitleAuthWrapper>
 
             {/*formik*/}
             <FormWrapper height={300} onSubmit={loginForm.handleSubmit}>

@@ -17,7 +17,7 @@ const IconWrapper = styled.div`
 
 export const CheckEmail = () => {
 
-    const stateAuth = useAppSelector<initialStateAuthorizationType>(state => state.AuthorizationReducer);
+    const {user} = useAppSelector<initialStateAuthorizationType>(state => state.AuthorizationReducer);
 
     return (
         <CardWrapper width={413} height={468}>
@@ -30,7 +30,7 @@ export const CheckEmail = () => {
                              opacity={0.5}
                              color={colors.DarkBlue}
                              fontSz={16}>
-                {`We’ve sent an Email with instructions to ${stateAuth.email}`}
+                {`We’ve sent an Email with activated link to ${user.email}`}
             </TextAuthWrapper>
         </CardWrapper>
 

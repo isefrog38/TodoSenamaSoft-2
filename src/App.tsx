@@ -41,7 +41,7 @@ export const App = () => {
                 {stateApp.status === 'loading'
                     ? <Loading/>
                     : <>
-                        {stateAuth.isAuth && <Header/>}
+                        {stateAuth.user.isActivated && <Header/>}
                         <Snackbar/>
                         <Routes>
                             <Route path={'/'} element={<Navigate to={PATH.todolist}/>}/>
