@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import axios from "axios";
-import {AppRootStateType, AppThunkType} from "../reduxStore/store";
+import {AppThunkType} from "../reduxStore/store";
 import {setAppStatusAC, setAppSuccessMessageAC} from "../reduxStore/appReducer";
 import {deleteUserDataAC, setAuthUserDataAC, setCheckEmailAC} from "../reduxStore/authReducer";
 import {handleServerNetworkError} from "../utilsFunction/Error-Utils";
@@ -14,9 +14,10 @@ export const AuthMeTC = (): AppThunkType => async dispatch => {
     dispatch(setAppStatusAC({status: 'loading'}));
 
     try {
-        const response = await authAPI.authMe()
-        if (response.data) {
-            dispatch(setAuthUserDataAC(response.data))
+        const {data} = await authAPI.authMe()
+        if (data) {
+            localStorage.setItem('token', data.accessToken);
+            dispatch(setAuthUserDataAC({data}));
             dispatch(setAppStatusAC({status: 'succeeded'}));
         }
     } catch (error) {
@@ -31,7 +32,9 @@ export const LoginTC = (email: string, password: string, rememberMe: boolean) =>
     try {
         const {data} = await authAPI.authLogin(email, password, rememberMe);
         if (data.user) {
+            localStorage.setItem('token', data.accessToken);
             dispatch(setAuthUserDataAC({data}));
+            dispatch(setAppSuccessMessageAC({success: `Hi mister ${data.user.email}`}));
             dispatch(setAppStatusAC({status: 'succeeded'}));
         }
     } catch (error) {
@@ -41,19 +44,17 @@ export const LoginTC = (email: string, password: string, rememberMe: boolean) =>
     }
 };
 
-export const LogOutTC = (): AppThunkType =>
-    async (dispatch , getState: () => AppRootStateType)=> {
+export const LogOutTC = (): AppThunkType => async dispatch => {
 
     dispatch(setAppStatusAC({status: 'loading'}));
 
     try {
         const response = await authAPI.logOut()
         if (response) {
-            let resetUser = {
-                id: null,
-                email: null,
-                isActivated: null,
-            };
+
+            localStorage.removeItem('token');
+
+            let resetUser = {id: null, email: null, isActivated: null};
             dispatch(deleteUserDataAC({user: resetUser}));
             dispatch(setAppStatusAC({status: 'succeeded'}));
             dispatch(setAppSuccessMessageAC({success: "LogOut succeeded"}));
@@ -81,8 +82,7 @@ export const RegisterTC = (email: string, password: string, navigate: NavigateFu
 
             navigate(PATH.checkEmail);
 
-            let idTimeout = +setTimeout(() => { navigate(PATH.login) },5000);
-            clearTimeout(idTimeout);
+            setTimeout(() => { navigate(PATH.login) },5000);
         }
     } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
