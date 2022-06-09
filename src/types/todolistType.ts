@@ -5,6 +5,7 @@ export type TodolistType = {
     file?: 1 | 0
 }
 
+
 export type LanguageResponseType = {
     "todolist_senamaSoft": string,
     "name_table": string,

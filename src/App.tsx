@@ -23,9 +23,9 @@ export const App = () => {
         const dispatch = useTypedDispatch();
 
         useEffect(() => {
-            if (localStorage.getItem('token')) {
+
                 dispatch(AuthMeTC());
-            }
+
         }, []);
 
         i18n

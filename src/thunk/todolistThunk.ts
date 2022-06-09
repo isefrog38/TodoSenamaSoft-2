@@ -115,12 +115,12 @@ export const getLanguageTC = (): AppThunkType =>
         try {
             const {language} = getState().AppReducer
             const response = await todolistsAPI.getLanguage(language);
-            if (response.status === 200) {
-                if (response.data.file.Eng) {
-                    dispatch(setLanguageFileAC({translation: response.data.file.Eng}));
+            if (response.data.statusCode > 200 || response.data.statusCode < 400) {
+                if (response.data.data.Rus) {
+                    dispatch(setLanguageFileAC({translation: response.data.data.Rus}));
                     dispatch(setAppStatusAC({status: 'succeeded'}));
                 } else {
-                    dispatch(setLanguageFileAC({translation: response.data.file.Rus}));
+                    dispatch(setLanguageFileAC({translation: response.data.data.Eng}));
                     dispatch(setAppStatusAC({status: 'succeeded'}));
                 }
             }
