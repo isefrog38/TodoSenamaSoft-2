@@ -8,8 +8,6 @@ const instance = axios.create({
     baseURL: 'http://localhost:7574/',
 });
 
-const instanceAWS = axios.create({baseURL: 'https://hnwqd3lfo9.execute-api.eu-west-3.amazonaws.com/prod/'});
-
 instance.interceptors.request.use((config) => {
         if (config.headers) config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
         return config;
@@ -51,8 +49,7 @@ export const todolistsAPI = {
     },
 
     getLanguage(lang: LanguageType) {
-        // return instance.get(`todolists/language/${lang}`);
-        return instanceAWS.get(`language?lang=${lang}`);
+        return instance.get(`todolists/language/${lang}`);
     },
 }
 

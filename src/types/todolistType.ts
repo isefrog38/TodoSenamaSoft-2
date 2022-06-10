@@ -5,6 +5,10 @@ export type TodolistType = {
     file?: 1 | 0
 }
 
+export type ResponsePostType = {
+    body: { id: string }
+    statusCode: number
+}
 
 export type LanguageResponseType = {
     "todolist_senamaSoft": string,

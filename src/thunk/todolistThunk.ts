@@ -76,9 +76,8 @@ export const createTodolistTC = (title: string, date: Date, file?: FileType, id?
     dispatch(setIsFetchingAC({isFetching: true}));
 
     try {
-        const response = await todolistsAPI.createTodolist(title, date, file, id);
-        if (response.status > 200 || response.status < 400) {
-            dispatch(getTodolistsTC());
+        const {data} = await todolistsAPI.createTodolist(title, date, file);
+        if (data.statusCode > 200 || data.statusCode < 400) {
             dispatch(resetTodolistsTC("Task created !"));
         }
     } catch (e) {
@@ -86,6 +85,18 @@ export const createTodolistTC = (title: string, date: Date, file?: FileType, id?
             handleServerNetworkError(e.message, dispatch);
         }
     }
+
+    // try {
+    //     const response = await todolistsAPI.createTodolist(title, date, file, id);
+    //     if (response.status > 200 || response.status < 400) {
+    //         dispatch(getTodolistsTC());
+    //         dispatch(resetTodolistsTC("Task created !"));
+    //     }
+    // } catch (e) {
+    //     if (e instanceof Error) {
+    //         handleServerNetworkError(e.message, dispatch);
+    //     }
+    // }
 }
 
 export const getFile = (id: string): AppThunkType => async dispatch => {
