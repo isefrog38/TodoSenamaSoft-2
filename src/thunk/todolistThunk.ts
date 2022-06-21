@@ -19,7 +19,7 @@ export const getTodolistsTC = (): AppThunkType =>
         try {
             let {params} = getState().AppReducer;
             const response = await todolistsAPI.getTodolists(params);
-            if (response.status === 200) {
+            if (response.status >= 200 && response.status < 400) {
                 dispatch(setTodolistsAC({todolists: response.data.todolists}));
                 dispatch(setTotalPageCountTaskAC({totalCount: response.data.totalCount}));
                 dispatch(setAppStatusAC({status: 'succeeded'}));
@@ -39,7 +39,7 @@ export const resetTodolistsTC = (text: string): AppThunkType =>
         try {
             let {params} = getState().AppReducer;
             const response = await todolistsAPI.getTodolists(params);
-            if (response.status === 200) {
+            if (response.status >= 200 && response.status < 400) {
                 dispatch(setTodolistsAC({todolists: response.data.todolists}));
                 dispatch(setTotalPageCountTaskAC({totalCount: response.data.totalCount}));
                 dispatch(setAppStatusAC({status: 'succeeded'}));
@@ -60,7 +60,7 @@ export const removeTodolistTC = (todolistId: string): AppThunkType => async disp
 
     try {
         const response = await todolistsAPI.removeTodolist(todolistId);
-        if (response.status > 200 && response.status < 400) {
+        if (response.status >= 200 && response.status < 400) {
             dispatch(resetTodolistsTC("Task removed !"));
         }
     } catch (e) {
@@ -76,8 +76,8 @@ export const createTodolistTC = (title: string, date: Date, file?: FileType, id?
     dispatch(setIsFetchingAC({isFetching: true}));
 
     try {
-        const response = await todolistsAPI.createTodolist(title, date, file);
-        if (response.status > 200 && response.status < 400) {
+        const response = await todolistsAPI.createTodolist(title, date, file, id);
+        if (response.status >= 200 && response.status < 400) {
             dispatch(resetTodolistsTC("Task created !"));
         }
     } catch (e) {

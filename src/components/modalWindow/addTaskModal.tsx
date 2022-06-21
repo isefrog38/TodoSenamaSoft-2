@@ -4,7 +4,7 @@ import {
     InputWrapper, Modal, ModalTextWrapper, ModalWindow, ModalWrapper, WrapperTextAndClose
 } from "../stylesComponents/modalWrappers";
 import {useFormik} from "formik";
-import {useAppSelector, useTypedDispatch} from "../../reduxStore/store";
+import {useTypedDispatch} from "../../reduxStore/store";
 import {createTodolistTC} from "../../thunk/todolistThunk";
 import {Button} from "../common/buttons/Button";
 import DatePicker from "react-datepicker";
@@ -12,7 +12,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import {fileToBase64} from "../../utilsFunction/Error-Utils";
 import { FormWrapper, TextAuthWrapper } from '../stylesComponents/taskWrapper';
 import { colors } from '../stylesComponents/colors';
-import {AppInitialStateType, InitialStateTodolistDomainType} from "../../types/reducersType";
+import {InitialStateTodolistDomainType} from "../../types/reducersType";
 
 type AddPackModalType = {
     name?: string
@@ -27,7 +27,6 @@ export type FormikErrorType = {
 export const AddTaskModal = ({setShow, el, name}: AddPackModalType) => {
 
     const maxLengthInput = 30;
-    const stateApp = useAppSelector<AppInitialStateType>(state => state.AppReducer);
     const dispatch = useTypedDispatch();
     const [file, setFile] = useState<File | null>(null);
     const [fileUrl, setFileURL] = useState<string | null>(null);
