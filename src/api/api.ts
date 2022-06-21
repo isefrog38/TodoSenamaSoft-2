@@ -4,8 +4,8 @@ import {FilterType, LanguageType} from "../types/reducersType";
 import {ResponseRegisterType} from "../types/authType";
 
 const instance = axios.create({
-    withCredentials: true,
     baseURL: 'http://localhost:7574/',
+    withCredentials: true,
 });
 
 instance.interceptors.request.use((config) => {

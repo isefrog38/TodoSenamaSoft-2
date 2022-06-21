@@ -36,6 +36,8 @@ export const LoginTC = (email: string, password: string, rememberMe: boolean) =>
             dispatch(setAuthUserDataAC({data}));
             dispatch(setAppSuccessMessageAC({success: `Hi mister ${data.user.email}`}));
             dispatch(setAppStatusAC({status: 'succeeded'}));
+        } else {
+            throw new Error('Fail login')
         }
     } catch (error) {
         if (axios.isAxiosError(error) && error.response) {

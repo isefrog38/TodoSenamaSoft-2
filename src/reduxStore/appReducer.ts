@@ -59,7 +59,7 @@ const AppSlice = createSlice({
             state.language = action.payload.language;
         },
         setLanguageFileAC(state, action: PayloadAction<{ translation: LanguageResponseType }>) {
-            state.translation = action.payload.translation;
+            state.translation = {...action.payload.translation};
         },
         setAppSuccessMessageAC(state, action: PayloadAction<{ success: null | string }>) {
             state.success = action.payload.success;

@@ -60,7 +60,7 @@ export const removeTodolistTC = (todolistId: string): AppThunkType => async disp
 
     try {
         const response = await todolistsAPI.removeTodolist(todolistId);
-        if (response.status === 200) {
+        if (response.status > 200 && response.status < 400) {
             dispatch(resetTodolistsTC("Task removed !"));
         }
     } catch (e) {
@@ -76,8 +76,8 @@ export const createTodolistTC = (title: string, date: Date, file?: FileType, id?
     dispatch(setIsFetchingAC({isFetching: true}));
 
     try {
-        const {data} = await todolistsAPI.createTodolist(title, date, file);
-        if (data.statusCode > 200 || data.statusCode < 400) {
+        const response = await todolistsAPI.createTodolist(title, date, file);
+        if (response.status > 200 && response.status < 400) {
             dispatch(resetTodolistsTC("Task created !"));
         }
     } catch (e) {
@@ -85,18 +85,6 @@ export const createTodolistTC = (title: string, date: Date, file?: FileType, id?
             handleServerNetworkError(e.message, dispatch);
         }
     }
-
-    // try {
-    //     const response = await todolistsAPI.createTodolist(title, date, file, id);
-    //     if (response.status > 200 || response.status < 400) {
-    //         dispatch(getTodolistsTC());
-    //         dispatch(resetTodolistsTC("Task created !"));
-    //     }
-    // } catch (e) {
-    //     if (e instanceof Error) {
-    //         handleServerNetworkError(e.message, dispatch);
-    //     }
-    // }
 }
 
 export const getFile = (id: string): AppThunkType => async dispatch => {
@@ -126,14 +114,16 @@ export const getLanguageTC = (): AppThunkType =>
         try {
             const {language} = getState().AppReducer
             const response = await todolistsAPI.getLanguage(language);
-            if (response.data.statusCode > 200 || response.data.statusCode < 400) {
-                if (response.data.data.Rus) {
-                    dispatch(setLanguageFileAC({translation: response.data.data.Rus}));
+            if (response.status >= 200 && response.status < 400) {
+                if (response.data.file.Rus) {
+                    dispatch(setLanguageFileAC({translation: response.data.file.Rus}));
                     dispatch(setAppStatusAC({status: 'succeeded'}));
                 } else {
-                    dispatch(setLanguageFileAC({translation: response.data.data.Eng}));
+                    dispatch(setLanguageFileAC({translation: response.data.file.Eng}));
                     dispatch(setAppStatusAC({status: 'succeeded'}));
                 }
+            } else {
+                throw new Error('Response is not defined')
             }
         } catch (e) {
             if (e instanceof Error) {

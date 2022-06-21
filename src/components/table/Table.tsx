@@ -75,7 +75,7 @@ const Span = styled.span<{ up?: boolean }>`
 `;
 
 const Table = styled.div`
-  min-height: 300px;
+  min-height: 270px;
   height: auto;
 `;
 
